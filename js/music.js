@@ -6,10 +6,8 @@
 // Add your MP3 filenames here once you have them.
 // Files should be placed in the /audio/ directory.
 const TRACKS = [
-  // Example:
-  // { title: "Wormwood Rising", file: "audio/wormwood-rising.mp3" },
-  // { title: "The Forge", file: "audio/the-forge.mp3" },
-  // { title: "Battle for Apsyntion", file: "audio/battle-for-apsyntion.mp3" },
+  { title: "Chronicles of the Forge", file: "audio/Chronicles_of_the_Forge_2026-03-09T150601.mp3" },
+  { title: "Chronicles of the Forge (Alt)", file: "audio/Chronicles_of_the_Forge_2026-03-09T150601 (1).mp3" },
 ];
 
 const audio    = document.getElementById('audio-player');
