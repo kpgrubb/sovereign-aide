@@ -252,59 +252,168 @@ function renderLightboxCard() {
   `;
 }
 
-// ── ANATOMY PANEL ──
-function initAnatomyToggle() {
-  const toggle = document.getElementById('anatomy-toggle');
-  const panel  = document.getElementById('anatomy-panel');
-  if (!toggle || !panel) return;
-  toggle.addEventListener('click', () => panel.classList.toggle('open'));
-}
+// ── ANATOMY ──
+const ANATOMY_EXAMPLES = [
+  {
+    id: 'facility',
+    label: 'Colony / Facility',
+    cardIdx: 0,
+    note: 'Played into your tableau. Generates resources and provides passive abilities each turn.',
+    hotspots: [
+      { top:  '7%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this card.' },
+      { top: '47%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Colony or Facility — determines the zone where it\'s played. May include a subtype (Colony — Factory, Facility — Lab, etc.).' },
+      { top: '61%', left: '6%',  num: 3, title: 'Ability Text',   desc: 'The card\'s unique ability. Card text always overrides the rulebook when there\'s a conflict.' },
+      { top: '81%', left: '6%',  num: 4, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect — just atmosphere.' },
+      { top: '93%', left: '6%',  num: 5, title: 'Forge Cost',     desc: 'Number of Talent tokens required to forge this card. Pay this from your Citadel during the Forge phase.' },
+      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
+    ],
+  },
+  {
+    id: 'unit',
+    label: 'Unit',
+    cardIdx: 1,
+    note: 'Deployed to battle lanes. Units attack opponents, defend your Citadel, and activate lane abilities.',
+    hotspots: [
+      { top:  '7%', left: '50%', num: 1, title: 'Card Name',       desc: 'The name of this unit.' },
+      { top: '47%', left: '6%',  num: 2, title: 'Card Type',       desc: 'Unit — with a subtype (Human, Mech, Drone, Airborne, etc.) that may interact with other abilities.' },
+      { top: '61%', left: '6%',  num: 3, title: 'Ability Text',    desc: 'Passive or triggered effects. Keywords like Airborne, Squad, and Resilient appear here and are defined on this card.' },
+      { top: '81%', left: '6%',  num: 4, title: 'Flavor Text',     desc: 'Italicized lore. No in-game effect.' },
+      { top: '93%', left: '6%',  num: 5, title: 'Attack / Health', desc: 'Two icons at the bottom: Attack (damage this unit deals) and Health (damage needed to destroy it).' },
+      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol',  desc: 'Identifies which faction deck this card belongs to.' },
+    ],
+  },
+  {
+    id: 'reflex',
+    label: 'Reflex',
+    cardIdx: 2,
+    note: 'Played instantly — even during your opponent\'s turn. Resolves immediately, then goes to the discard pile.',
+    hotspots: [
+      { top:  '7%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this reflex card.' },
+      { top: '44%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Reflex — can be played at any time, even mid-battle or during your opponent\'s phase.' },
+      { top: '59%', left: '6%',  num: 3, title: 'Effect',         desc: 'A single, immediate effect. After it resolves, this card is discarded — it never enters the forge.' },
+      { top: '80%', left: '6%',  num: 4, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect.' },
+      { top: '93%', left: '6%',  num: 5, title: 'Forge Cost',     desc: 'Talents required to put this card into your forge.' },
+      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
+    ],
+  },
+  {
+    id: 'echo',
+    label: 'Echo',
+    cardIdx: 32,
+    note: 'Your victory points. Score 10 Echoes (or 12 in 2-player) to win. Each faction deck contains 20 Echoes.',
+    hotspots: [
+      { top: '15%', left: '50%', num: 1, title: 'Echo',           desc: 'This card is an Echo — worth 1 point toward your win condition when scored.' },
+      { top: '50%', left: '6%',  num: 2, title: 'Echo Bonus',     desc: 'Some Echoes grant an immediate bonus when scored: a resource, card draw, or special effect.' },
+      { top: '75%', left: '6%',  num: 3, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect.' },
+      { top: '15%', left: '84%', num: 4, title: 'Faction Symbol', desc: 'Identifies which faction this Echo belongs to.' },
+    ],
+  },
+  {
+    id: 'leader',
+    label: 'Leader / Citadel',
+    cardIdx: 520,
+    landscape: true,
+    note: 'Unique to each faction. Your Citadel starts in play; it anchors your strategy and can exhaust to accelerate forging.',
+    hotspots: [
+      { top: '18%', left: '12%', num: 1, title: 'Card Name',      desc: 'The name of this Leader or Citadel.' },
+      { top: '50%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Leader or Citadel. These are not forged — they start the game in play.' },
+      { top: '67%', left: '6%',  num: 3, title: 'Ability',        desc: 'A powerful, faction-defining ability. Citadels can also exhaust Talent tokens to move your forge track forward.' },
+      { top: '85%', left: '6%',  num: 4, title: 'Health',         desc: 'Damage required to destroy this card. If your Citadel is destroyed, you lose the game.' },
+      { top: '18%', left: '80%', num: 5, title: 'Faction Symbol', desc: 'Identifies the faction this card belongs to.' },
+    ],
+  },
+];
 
 function buildAnatomyPanel() {
-  const body = document.getElementById('anatomy-body');
-  if (!body) return;
+  const tabsEl     = document.getElementById('anatomy-tabs');
+  const examplesEl = document.getElementById('anatomy-examples');
+  if (!tabsEl || !examplesEl) return;
 
-  const LABELS = [
-    { top: '8%',  left: '8%',  num: 1, title: 'Card Name',          desc: 'The name of this card.' },
-    { top: '48%', left: '5%',  num: 2, title: 'Card Type',           desc: 'Determines where it is played. May also have a subtype (Colony, Human, Mech, etc.).' },
-    { top: '60%', left: '5%',  num: 3, title: 'Ability Text',        desc: 'The card\'s unique ability. Keywords are always defined on the card that contains them.' },
-    { top: '82%', left: '5%',  num: 4, title: 'Flavor Text',         desc: 'Italicized lore text. Has no effect on the game.' },
-    { top: '92%', left: '5%',  num: 5, title: 'Forge Cost / Health', desc: 'Bottom icons indicate forge cost (talents needed) or maximum health (for units).' },
-    { top: '8%',  left: '80%', num: 6, title: 'Faction Symbol',      desc: 'Identifies which faction deck this card belongs to.' },
-  ];
+  // Build tabs
+  ANATOMY_EXAMPLES.forEach((ex, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'anatomy-tab' + (i === 0 ? ' active' : '');
+    btn.dataset.exampleId = ex.id;
+    btn.textContent = ex.label.toUpperCase();
+    tabsEl.appendChild(btn);
+  });
 
-  const hotspotsHtml = LABELS.map(l => `
-    <div class="anatomy-hotspot" style="top:${l.top};left:${l.left}">
-      <div class="anatomy-hotspot-dot">${l.num}</div>
-    </div>
-  `).join('');
+  // Build example panels
+  ANATOMY_EXAMPLES.forEach((ex, i) => {
+    const panel = document.createElement('div');
+    panel.className = 'anatomy-example' + (i === 0 ? ' active' : '');
+    panel.dataset.exampleId = ex.id;
 
-  const legendHtml = LABELS.map(l => `
-    <div class="anatomy-legend-item">
-      <div class="anatomy-legend-num">${l.num}</div>
-      <div class="anatomy-legend-text">
-        <strong>${l.title}</strong>
-        <span>${l.desc}</span>
+    const imgSrc = `assets/cards/fronts/card-${String(ex.cardIdx).padStart(3,'0')}.jpg`;
+
+    const hotspotsHtml = ex.hotspots.map(h => `
+      <button class="anatomy-hotspot" data-num="${h.num}"
+              style="top:${h.top};left:${h.left}"
+              aria-label="${h.title}">
+        <span class="anatomy-hotspot-dot">${h.num}</span>
+      </button>
+    `).join('');
+
+    const legendHtml = ex.hotspots.map(h => `
+      <div class="anatomy-legend-item" data-num="${h.num}">
+        <div class="anatomy-legend-num">${h.num}</div>
+        <div class="anatomy-legend-text">
+          <strong>${h.title}</strong>
+          <span>${h.desc}</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `).join('');
 
-  body.innerHTML = `
-    <div class="anatomy-layout">
-      <div class="anatomy-card-wrap">
-        <img class="anatomy-card-img" src="assets/cards/fronts/card-000.jpg" alt="Anatomy example card" />
-        ${hotspotsHtml}
+    panel.innerHTML = `
+      <div class="anatomy-layout${ex.landscape ? ' landscape' : ''}">
+        <div class="anatomy-card-wrap">
+          <img class="anatomy-card-img${ex.landscape ? ' landscape' : ''}"
+               src="${imgSrc}" alt="${ex.label} example card" />
+          ${hotspotsHtml}
+        </div>
+        <div class="anatomy-right">
+          <p class="anatomy-note">${ex.note}</p>
+          <div class="anatomy-legend">${legendHtml}</div>
+        </div>
       </div>
-      <div class="anatomy-legend">${legendHtml}</div>
-    </div>
-    <div style="margin-top:1.25rem">
-      <p style="font-size:0.82rem;color:var(--text-dim)">
-        <strong style="color:var(--text-secondary)">Card back:</strong>
-        Shows the forge track — a circular path with numbered spaces.
-        Place a talent token on the first space when you put a card into the forge.
-        Advance it clockwise each Upkeep phase (or accelerate by exhausting Citadel talents).
-        Reveal the card when the token reaches the forge cost number.
-      </p>
-    </div>
-  `;
+    `;
+
+    examplesEl.appendChild(panel);
+    initAnatomyInteraction(panel);
+  });
+
+  // Tab switching
+  tabsEl.addEventListener('click', e => {
+    const btn = e.target.closest('.anatomy-tab');
+    if (!btn) return;
+    tabsEl.querySelectorAll('.anatomy-tab').forEach(t => t.classList.remove('active'));
+    examplesEl.querySelectorAll('.anatomy-example').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    examplesEl.querySelector(`[data-example-id="${btn.dataset.exampleId}"]`)?.classList.add('active');
+  });
+}
+
+function initAnatomyInteraction(panel) {
+  const hotspots   = panel.querySelectorAll('.anatomy-hotspot');
+  const legendItems = panel.querySelectorAll('.anatomy-legend-item');
+
+  function setActive(num) {
+    hotspots.forEach(h => h.classList.toggle('active', h.dataset.num === num));
+    legendItems.forEach(l => l.classList.toggle('active', l.dataset.num === num));
+  }
+  function clearActive() {
+    hotspots.forEach(h => h.classList.remove('active'));
+    legendItems.forEach(l => l.classList.remove('active'));
+  }
+
+  hotspots.forEach(h => {
+    h.addEventListener('mouseenter', () => setActive(h.dataset.num));
+    h.addEventListener('mouseleave', clearActive);
+    h.addEventListener('focus',      () => setActive(h.dataset.num));
+    h.addEventListener('blur',       clearActive);
+  });
+  legendItems.forEach(l => {
+    l.addEventListener('mouseenter', () => setActive(l.dataset.num));
+    l.addEventListener('mouseleave', clearActive);
+  });
 }

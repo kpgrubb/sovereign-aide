@@ -2,64 +2,108 @@
    CARD LIBRARY & LIGHTBOX STYLES
    ────────────────────────────────────────────── */
 
-/* ── ANATOMY PANEL ── */
-.anatomy-panel {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-panel);
-  border-radius: var(--radius-lg);
-  margin-bottom: 1.5rem;
-  overflow: hidden;
+/* ── ANATOMY SECTION ── */
+.anatomy-section {
+  margin-bottom: 2.5rem;
 }
-.anatomy-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.9rem 1.25rem;
+.anatomy-intro {
+  margin-bottom: 1.25rem;
+}
+.anatomy-title {
   font-family: var(--font-head);
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
   color: var(--accent-gold);
+  margin: 0 0 0.3rem;
+}
+.anatomy-subtitle {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* Tabs */
+.anatomy-tabs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0;
+}
+.anatomy-tab {
+  padding: 0.5rem 1rem;
+  font-family: var(--font-head);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
   cursor: pointer;
-  user-select: none;
-  transition: background 0.15s;
+  transition: color 0.15s, border-color 0.15s;
 }
-.anatomy-header:hover { background: var(--bg-raised); }
-.anatomy-chevron { transition: transform 0.2s; font-size: 0.7rem; color: var(--text-dim); }
-.anatomy-panel.open .anatomy-chevron { transform: rotate(180deg); }
-.anatomy-body {
-  display: none;
-  padding: 1.5rem;
-  border-top: 1px solid var(--border-subtle);
+.anatomy-tab:hover { color: var(--text-secondary); }
+.anatomy-tab.active {
+  color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
 }
-.anatomy-panel.open .anatomy-body { display: block; }
+
+/* Example panels */
+.anatomy-example { display: none; }
+.anatomy-example.active { display: block; }
 
 .anatomy-layout {
   display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 2rem;
+  grid-template-columns: 220px 1fr;
+  gap: 2.5rem;
   align-items: start;
 }
-@media (max-width: 700px) { .anatomy-layout { grid-template-columns: 1fr; } }
+.anatomy-layout.landscape {
+  grid-template-columns: 300px 1fr;
+}
+@media (max-width: 780px) {
+  .anatomy-layout,
+  .anatomy-layout.landscape { grid-template-columns: 1fr; }
+}
+
+/* Card image + hotspot overlay */
 .anatomy-card-wrap {
   position: relative;
-  width: 200px;
+  width: 100%;
   flex-shrink: 0;
 }
 .anatomy-card-img {
   width: 100%;
-  border-radius: var(--radius-md);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.6);
   display: block;
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.7);
 }
+.anatomy-card-img.landscape {
+  transform: rotate(-90deg);
+  transform-origin: center center;
+  /* compensate layout: landscape card fills portrait container rotated */
+  width: calc(100% * 110 / 85);
+  margin-left: calc(-100% * 12.5 / 85);
+  margin-top: calc(100% * 12.5 / 85);
+  margin-bottom: calc(100% * 12.5 / 85);
+}
+
+/* Hotspot dots */
 .anatomy-hotspot {
   position: absolute;
-  cursor: default;
   transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: default;
 }
 .anatomy-hotspot-dot {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   background: var(--accent-gold);
   border: 2px solid var(--bg-deep);
   border-radius: 50%;
@@ -70,22 +114,62 @@
   font-weight: 900;
   font-size: 0.65rem;
   color: var(--bg-deep);
-  box-shadow: 0 0 10px rgba(201,162,39,0.6);
+  box-shadow: 0 0 8px rgba(201,162,39,0.5);
+  transition: transform 0.15s, box-shadow 0.15s;
 }
+.anatomy-hotspot.active .anatomy-hotspot-dot,
+.anatomy-hotspot:hover  .anatomy-hotspot-dot {
+  transform: scale(1.25);
+  box-shadow: 0 0 16px rgba(201,162,39,0.9);
+}
+
+/* Right column */
+.anatomy-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.anatomy-note {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  padding: 0.75rem 1rem;
+  background: var(--bg-panel);
+  border-left: 3px solid var(--accent-gold);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 0;
+}
+
+/* Legend */
 .anatomy-legend {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 .anatomy-legend-item {
   display: flex;
   gap: 0.75rem;
   align-items: flex-start;
+  padding: 0.5rem 0.6rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+  cursor: default;
+}
+.anatomy-legend-item.active,
+.anatomy-legend-item:hover {
+  background: var(--bg-raised);
+  border-color: var(--border-panel);
+}
+.anatomy-legend-item.active .anatomy-legend-num {
+  background: var(--accent-gold);
+  box-shadow: 0 0 10px rgba(201,162,39,0.6);
 }
 .anatomy-legend-num {
   width: 22px;
   height: 22px;
-  background: var(--accent-gold);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-panel);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -93,22 +177,24 @@
   font-family: var(--font-head);
   font-weight: 900;
   font-size: 0.65rem;
-  color: var(--bg-deep);
+  color: var(--accent-gold);
   flex-shrink: 0;
   margin-top: 2px;
+  transition: background 0.15s, box-shadow 0.15s;
 }
+.anatomy-legend-item.active .anatomy-legend-num { color: var(--bg-deep); }
 .anatomy-legend-text strong {
   font-family: var(--font-head);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.06em;
   display: block;
   color: var(--text-primary);
   margin-bottom: 2px;
 }
 .anatomy-legend-text span {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ── FILTER BAR ── */
