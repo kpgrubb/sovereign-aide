@@ -5,3 +5,13 @@ package-lock.json
 .DS_Store
 Thumbs.db
 *.log
+
+# Full-size card images (too large for git — use thumbs instead)
+assets/cards/fronts/
+assets/cards/backs/
+assets/cards/pages/
+
+# Dev utility scripts
+slice-cards.cjs
+make-thumbs.cjs
+extract-cards.cjs

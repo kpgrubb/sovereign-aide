@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/tooltip.css" />
   <link rel="stylesheet" href="css/tracker.css" />
+  <link rel="stylesheet" href="css/cards.css" />
 </head>
 <body>
 
@@ -26,6 +27,7 @@
         <button class="nav-btn" data-section="guide">PLAY GUIDE</button>
         <button class="nav-btn" data-section="reference">REFERENCE</button>
         <button class="nav-btn" data-section="tracker">TRACKER</button>
+        <button class="nav-btn" data-section="cards">CARDS</button>
       </nav>
       <div class="header-controls">
         <label class="skill-toggle" title="Toggle beginner / advanced mode">
@@ -185,6 +187,50 @@
       </div>
     </section>
 
+    <!-- CARDS -->
+    <section id="section-cards" class="section" aria-label="Card Library">
+      <div class="section-header">
+        <h2>CARD LIBRARY</h2>
+        <p class="section-desc">All 558 cards from the print-and-play. Click any card to flip or zoom.</p>
+      </div>
+
+      <!-- ANATOMY -->
+      <div id="anatomy-panel" class="anatomy-panel">
+        <div class="anatomy-header" id="anatomy-toggle">
+          <span>ANATOMY OF A CARD</span>
+          <span class="anatomy-chevron">▼</span>
+        </div>
+        <div class="anatomy-body" id="anatomy-body"></div>
+      </div>
+
+      <!-- FILTERS -->
+      <div class="card-filters">
+        <div class="filter-group">
+          <label class="filter-label">FACTION</label>
+          <div class="filter-pills" id="faction-filter-pills"></div>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">TYPE</label>
+          <div class="filter-pills">
+            <button class="filter-pill active" data-type="all">ALL</button>
+            <button class="filter-pill" data-type="unique">UNIQUE CARDS</button>
+            <button class="filter-pill" data-type="echo">ECHOES</button>
+            <button class="filter-pill" data-type="special">LEADERS &amp; CITADELS</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <label class="filter-label">VIEW</label>
+          <div class="filter-pills">
+            <button class="filter-pill active" data-view="front">FRONTS</button>
+            <button class="filter-pill" data-view="back">BACKS</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-count-label" id="card-count-label"></div>
+      <div class="card-grid" id="card-grid"></div>
+    </section>
+
     <!-- TRACKER -->
     <section id="section-tracker" class="section" aria-label="Game Tracker">
       <div class="section-header">
@@ -246,6 +292,21 @@
     <audio id="audio-player"></audio>
   </div>
 
+  <!-- ── CARD LIGHTBOX ── -->
+  <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+    <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+    <div class="lightbox-inner">
+      <div class="lightbox-card" id="lightbox-card">
+        <img class="lightbox-front" id="lightbox-front-img" alt="Card front" />
+        <img class="lightbox-back"  id="lightbox-back-img"  alt="Card back" />
+      </div>
+      <button class="lightbox-flip-btn" id="lightbox-flip-btn">FLIP CARD</button>
+      <div class="lightbox-info" id="lightbox-info"></div>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
+  </div>
+
   <!-- ── TOOLTIP POPOVER ── -->
   <div class="kw-popover" id="kw-popover" role="tooltip" aria-hidden="true">
     <div class="kw-popover-term" id="kw-popover-term"></div>
@@ -260,6 +321,7 @@
   <script type="module" src="js/tooltips.js"></script>
   <script type="module" src="js/tracker.js"></script>
   <script type="module" src="js/music.js"></script>
+  <script type="module" src="js/cards.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
