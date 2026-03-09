@@ -98,7 +98,7 @@ function applyFilters() {
   }
 
   const label = document.getElementById('card-count-label');
-  if (label) label.textContent = `Showing ${filteredCards.length} of ${CARD_COUNT} cards`;
+  if (label) label.textContent = `${filteredCards.length} of ${CARD_COUNT} cards`;
 
   renderGrid();
 }
@@ -108,42 +108,59 @@ function renderGrid() {
   const grid = document.getElementById('card-grid');
   if (!grid) return;
 
-  // Use a document fragment for performance
   const frag = document.createDocumentFragment();
+  const side = activeView === 'back' ? 'backs' : 'fronts';
+  const showGroupHeaders = activeFaction === 'all' && activeType !== 'special';
+
+  let lastFactionName = null;
 
   filteredCards.forEach((cardIdx, filteredPos) => {
-    const isSpec    = isSpecialCard(cardIdx);
-    const isEcho    = isEchoCard(cardIdx);
-    const faction   = getFactionForCard(cardIdx);
-    const side      = activeView === 'back' ? 'backs' : 'fronts';
+    const isSpec  = isSpecialCard(cardIdx);
+    const isEcho  = isEchoCard(cardIdx);
+    const faction = getFactionForCard(cardIdx);
+
+    // Faction section header
+    if (showGroupHeaders && faction && faction.name !== lastFactionName) {
+      lastFactionName = faction.name;
+      const header = document.createElement('div');
+      header.className = 'faction-section-header';
+      const label = faction.special ? 'LEADERS & CITADELS' : faction.name.toUpperCase();
+      const exp   = faction.expansion ? ' — EXPANSION' : '';
+      header.innerHTML = `
+        <div class="faction-header-bar" style="background:${faction.color}"></div>
+        <span class="faction-header-label" style="color:${faction.color}">${label}${exp}</span>
+        <div class="faction-header-bar" style="background:${faction.color}"></div>
+      `;
+      frag.appendChild(header);
+    }
 
     const wrap = document.createElement('div');
-    wrap.className = `card-thumb-wrap${isSpec ? ' landscape' : ''}${isEcho ? ' echo-card' : ''}`;
+    wrap.className = 'card-thumb-wrap';
     wrap.dataset.cardIdx = cardIdx;
     wrap.dataset.filteredPos = filteredPos;
+
+    const accentColor = faction?.color || '#555';
+    wrap.style.borderTopColor = accentColor;
+    wrap.style.setProperty('--card-accent', accentColor + '55');
 
     const img = document.createElement('img');
     img.className = 'card-thumb-img';
     img.src = thumbPath(cardIdx, side);
     img.alt = `Card ${cardIdx}`;
     img.loading = 'lazy';
-
-    if (isEcho) {
-      const badge = document.createElement('div');
-      badge.className = 'card-thumb-badge';
-      badge.textContent = 'ECHO';
-      wrap.appendChild(badge);
-    } else if (isSpec) {
-      const badge = document.createElement('div');
-      badge.className = 'card-thumb-badge';
-      badge.textContent = 'SPECIAL';
-      wrap.appendChild(badge);
-    }
-
     wrap.appendChild(img);
 
-    // Apply faction border color
-    if (faction) wrap.style.borderTopColor = faction.color;
+    if (isSpec) {
+      const badge = document.createElement('div');
+      badge.className = 'card-thumb-badge badge-leader';
+      badge.textContent = 'LEADER';
+      wrap.appendChild(badge);
+    } else if (isEcho) {
+      const badge = document.createElement('div');
+      badge.className = 'card-thumb-badge badge-echo';
+      badge.textContent = 'ECHO';
+      wrap.appendChild(badge);
+    }
 
     wrap.addEventListener('click', () => openLightbox(filteredPos));
     frag.appendChild(wrap);
@@ -217,14 +234,14 @@ function renderLightboxCard() {
   const info     = document.getElementById('lightbox-info');
   const flipBtn  = document.getElementById('lightbox-flip-btn');
 
-  card.classList.toggle('flipped',    lightboxFlipped);
-  card.classList.toggle('landscape',  isSpec);
-  flipBtn.textContent = lightboxFlipped ? 'FLIP TO FRONT' : 'FLIP CARD';
+  card.classList.remove('flipped');
+  card.classList.toggle('landscape', isSpec);
+  flipBtn.textContent = 'FLIP CARD';
 
   frontImg.src = fullPath(cardIdx, 'fronts');
   backImg.src  = fullPath(cardIdx, 'backs');
 
-  const typeLabel = isSpec ? 'Leader / Citadel' : isEcho ? 'Echo' : 'Faction Card';
+  const typeLabel    = isSpec ? 'Leader / Citadel' : isEcho ? 'Echo' : 'Faction Card';
   const factionLabel = faction ? faction.name : '';
   info.innerHTML = `
     <span style="color:${faction?.color || 'var(--text-dim)'}">
@@ -247,14 +264,13 @@ function buildAnatomyPanel() {
   const body = document.getElementById('anatomy-body');
   if (!body) return;
 
-  // Use card-000 (Absolution Sphere — Colony/Facility) as the example
   const LABELS = [
-    { top: '8%',  left: '8%',  num: 1, title: 'Card Name',   desc: 'The name of this card.' },
-    { top: '48%', left: '5%',  num: 2, title: 'Card Type',   desc: 'Determines where it is played. May also have a subtype (Colony, Human, Mech, etc.).' },
-    { top: '60%', left: '5%',  num: 3, title: 'Ability Text', desc: 'The card\'s unique ability. Keywords are always defined on the card that contains them.' },
-    { top: '82%', left: '5%',  num: 4, title: 'Flavor Text',  desc: 'Italicized lore text. Has no effect on the game.' },
+    { top: '8%',  left: '8%',  num: 1, title: 'Card Name',          desc: 'The name of this card.' },
+    { top: '48%', left: '5%',  num: 2, title: 'Card Type',           desc: 'Determines where it is played. May also have a subtype (Colony, Human, Mech, etc.).' },
+    { top: '60%', left: '5%',  num: 3, title: 'Ability Text',        desc: 'The card\'s unique ability. Keywords are always defined on the card that contains them.' },
+    { top: '82%', left: '5%',  num: 4, title: 'Flavor Text',         desc: 'Italicized lore text. Has no effect on the game.' },
     { top: '92%', left: '5%',  num: 5, title: 'Forge Cost / Health', desc: 'Bottom icons indicate forge cost (talents needed) or maximum health (for units).' },
-    { top: '8%',  left: '80%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
+    { top: '8%',  left: '80%', num: 6, title: 'Faction Symbol',      desc: 'Identifies which faction deck this card belongs to.' },
   ];
 
   const hotspotsHtml = LABELS.map(l => `

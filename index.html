@@ -204,30 +204,30 @@
       </div>
 
       <!-- FILTERS -->
-      <div class="card-filters">
-        <div class="filter-group">
-          <label class="filter-label">FACTION</label>
-          <div class="filter-pills" id="faction-filter-pills"></div>
-        </div>
-        <div class="filter-group">
-          <label class="filter-label">TYPE</label>
-          <div class="filter-pills">
-            <button class="filter-pill active" data-type="all">ALL</button>
-            <button class="filter-pill" data-type="unique">UNIQUE CARDS</button>
-            <button class="filter-pill" data-type="echo">ECHOES</button>
-            <button class="filter-pill" data-type="special">LEADERS &amp; CITADELS</button>
+      <div class="card-filter-bar">
+        <div class="card-filters">
+          <div class="filter-row">
+            <span class="filter-label">FACTION</span>
+            <div class="filter-pills" id="faction-filter-pills"></div>
           </div>
-        </div>
-        <div class="filter-group">
-          <label class="filter-label">VIEW</label>
-          <div class="filter-pills">
-            <button class="filter-pill active" data-view="front">FRONTS</button>
-            <button class="filter-pill" data-view="back">BACKS</button>
+          <div class="filter-row">
+            <span class="filter-label">TYPE</span>
+            <div class="filter-pills">
+              <button class="filter-pill active" data-type="all">ALL</button>
+              <button class="filter-pill" data-type="unique">UNIQUE</button>
+              <button class="filter-pill" data-type="echo">ECHOES</button>
+              <button class="filter-pill" data-type="special">LEADERS &amp; CITADELS</button>
+            </div>
+            <span class="filter-label" style="margin-left:1rem">VIEW</span>
+            <div class="filter-pills">
+              <button class="filter-pill active" data-view="front">FRONTS</button>
+              <button class="filter-pill" data-view="back">BACKS</button>
+            </div>
+            <span class="card-count-label" id="card-count-label" style="margin-left:auto"></span>
           </div>
         </div>
       </div>
 
-      <div class="card-count-label" id="card-count-label"></div>
       <div class="card-grid" id="card-grid"></div>
     </section>
 
