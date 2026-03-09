@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sovereign: Fall of Wormwood</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;600;700;800;900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/tooltip.css" />
+  <link rel="stylesheet" href="css/tracker.css" />
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-title">SOVEREIGN</span>
+        <span class="logo-sub">FALL OF WORMWOOD</span>
+      </div>
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-btn active" data-section="home">HOME</button>
+        <button class="nav-btn" data-section="learn">LEARN</button>
+        <button class="nav-btn" data-section="guide">PLAY GUIDE</button>
+        <button class="nav-btn" data-section="reference">REFERENCE</button>
+        <button class="nav-btn" data-section="tracker">TRACKER</button>
+      </nav>
+      <div class="header-controls">
+        <label class="skill-toggle" title="Toggle beginner / advanced mode">
+          <span class="toggle-label" id="skill-label">BEGINNER</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="skill-toggle-input" />
+            <span class="toggle-slider"></span>
+          </div>
+          <span class="toggle-label" id="skill-label-adv">ADVANCED</span>
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="main-content">
+
+    <!-- HOME -->
+    <section id="section-home" class="section active" aria-label="Home">
+      <div class="hero">
+        <div class="hero-text">
+          <h1 class="hero-title">WELCOME TO <span class="accent">APSYNTION</span></h1>
+          <p class="hero-sub">A far-future society builder. A tactical card game for 2–4 players. Forge your empire. Collect ten Echoes. Survive.</p>
+          <div class="hero-win-condition">
+            <span class="win-label">WIN CONDITION</span>
+            <span class="win-rule">First player to score <strong>10 Echoes</strong> wins<span class="page-ref">[p. 4]</span></span>
+            <span class="win-note adv-only">(12 Echoes recommended for 2-player games)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-nav-grid">
+        <button class="quick-nav-card" data-section="learn">
+          <div class="qnc-icon">📖</div>
+          <div class="qnc-title">LEARN THE GAME</div>
+          <div class="qnc-desc">Rules, card types, and how your turn works</div>
+        </button>
+        <button class="quick-nav-card" data-section="guide">
+          <div class="qnc-icon">⚔️</div>
+          <div class="qnc-title">PLAY GUIDE</div>
+          <div class="qnc-desc">Phase-by-phase walkthrough for every turn</div>
+        </button>
+        <button class="quick-nav-card" data-section="reference">
+          <div class="qnc-icon">🔍</div>
+          <div class="qnc-title">REFERENCE</div>
+          <div class="qnc-desc">Glossary, factions, and keyword lookup</div>
+        </button>
+        <button class="quick-nav-card" data-section="tracker">
+          <div class="qnc-icon">📊</div>
+          <div class="qnc-title">GAME TRACKER</div>
+          <div class="qnc-desc">Track Echoes, Citizens, phases, and turns</div>
+        </button>
+      </div>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <h3>YOUR DECK</h3>
+          <p>Each faction deck contains <strong>32 unique cards</strong> and <strong>20 Echoes</strong> — 52 cards total. Your deck defines your faction's identity and strategy.</p>
+          <span class="page-ref">[p. 4]</span>
+        </div>
+        <div class="overview-card">
+          <h3>CITIZENS</h3>
+          <p><strong>Talents</strong> and <strong>Drones</strong> are your primary resources — not money. They work facilities, health your units, and power your abilities.</p>
+          <span class="page-ref">[p. 6]</span>
+        </div>
+        <div class="overview-card">
+          <h3>SIX PHASES</h3>
+          <p>Each turn flows through <strong>Growth → Upkeep → Forge → Battle → Move → Draw</strong>. Master the rhythm and you master the game.</p>
+          <span class="page-ref">[p. 10]</span>
+        </div>
+        <div class="overview-card">
+          <h3>THE GOLDEN RULE</h3>
+          <p>If a card ever contradicts something in this rulebook, <strong>the card text overrides</strong> anything written here.</p>
+          <span class="page-ref">[p. 30]</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEARN -->
+    <section id="section-learn" class="section" aria-label="Learn the Game">
+      <div class="section-header">
+        <h2>LEARN THE GAME</h2>
+      </div>
+      <div class="learn-layout">
+        <nav class="learn-sidebar" aria-label="Rules sections">
+          <button class="learn-nav active" data-learn="deck">YOUR DECK</button>
+          <button class="learn-nav" data-learn="citizens">CITIZENS</button>
+          <button class="learn-nav" data-learn="anatomy">CARD ANATOMY</button>
+          <button class="learn-nav" data-learn="setup">GAME SETUP</button>
+          <button class="learn-nav" data-learn="phases">YOUR TURN</button>
+          <button class="learn-nav" data-learn="cardtypes">CARD TYPES</button>
+          <button class="learn-nav adv-only" data-learn="advanced">ADVANCED RULES</button>
+        </nav>
+        <div class="learn-content" id="learn-content">
+          <!-- populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAY GUIDE -->
+    <section id="section-guide" class="section" aria-label="Play Guide">
+      <div class="section-header">
+        <h2>PLAY GUIDE</h2>
+        <p class="section-desc">Your turn, phase by phase.</p>
+      </div>
+      <div class="phase-track">
+        <div class="phase-node active" data-phase="0">
+          <div class="phase-dot"></div>
+          <div class="phase-name">GROWTH</div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase-node" data-phase="1">
+          <div class="phase-dot"></div>
+          <div class="phase-name">UPKEEP</div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase-node" data-phase="2">
+          <div class="phase-dot"></div>
+          <div class="phase-name">FORGE</div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase-node" data-phase="3">
+          <div class="phase-dot"></div>
+          <div class="phase-name">BATTLE</div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase-node" data-phase="4">
+          <div class="phase-dot"></div>
+          <div class="phase-name">MOVE</div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase-node" data-phase="5">
+          <div class="phase-dot"></div>
+          <div class="phase-name">DRAW</div>
+        </div>
+      </div>
+      <div class="phase-detail" id="phase-detail">
+        <!-- populated by app.js -->
+      </div>
+    </section>
+
+    <!-- REFERENCE -->
+    <section id="section-reference" class="section" aria-label="Reference">
+      <div class="section-header">
+        <h2>REFERENCE</h2>
+      </div>
+      <div class="ref-tabs">
+        <button class="ref-tab active" data-ref="glossary">GLOSSARY</button>
+        <button class="ref-tab" data-ref="factions">FACTIONS</button>
+        <button class="ref-tab" data-ref="quickref">QUICK REF</button>
+      </div>
+      <div class="ref-search-bar">
+        <input type="text" id="glossary-search" placeholder="Search keywords…" autocomplete="off" />
+      </div>
+      <div class="ref-content" id="ref-content">
+        <!-- populated by app.js -->
+      </div>
+    </section>
+
+    <!-- TRACKER -->
+    <section id="section-tracker" class="section" aria-label="Game Tracker">
+      <div class="section-header">
+        <h2>GAME TRACKER</h2>
+      </div>
+      <div id="tracker-setup" class="tracker-panel">
+        <h3>SETUP NEW GAME</h3>
+        <div class="setup-row">
+          <label>Number of Players</label>
+          <div class="player-count-btns">
+            <button class="player-count-btn active" data-count="2">2</button>
+            <button class="player-count-btn" data-count="3">3</button>
+            <button class="player-count-btn" data-count="4">4</button>
+          </div>
+        </div>
+        <div id="player-setup-rows">
+          <!-- populated by tracker.js -->
+        </div>
+        <div class="setup-row win-setting">
+          <label>Win Condition (Echoes)</label>
+          <div class="player-count-btns">
+            <button class="win-btn active" data-win="10">10</button>
+            <button class="win-btn" data-win="12">12</button>
+          </div>
+        </div>
+        <button class="btn-primary" id="start-game-btn">START GAME</button>
+      </div>
+
+      <div id="tracker-game" class="tracker-panel hidden">
+        <div class="tracker-top-bar">
+          <div class="phase-indicator" id="phase-indicator">
+            <!-- populated by tracker.js -->
+          </div>
+          <div class="tracker-controls">
+            <button class="btn-secondary" id="next-phase-btn">NEXT PHASE ›</button>
+            <button class="btn-secondary" id="reset-game-btn">RESET</button>
+          </div>
+        </div>
+        <div class="player-cards-grid" id="player-cards-grid">
+          <!-- populated by tracker.js -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── MUSIC PLAYER ── -->
+  <div class="music-bar" id="music-bar" aria-label="Music player">
+    <div class="music-info">
+      <div class="music-track" id="music-track-name">No tracks loaded</div>
+      <div class="music-time" id="music-time">—</div>
+    </div>
+    <div class="music-controls">
+      <button class="music-btn" id="music-prev" title="Previous track" aria-label="Previous">&#9664;&#9664;</button>
+      <button class="music-btn music-play" id="music-play" title="Play / Pause" aria-label="Play">&#9654;</button>
+      <button class="music-btn" id="music-next" title="Next track" aria-label="Next">&#9654;&#9654;</button>
+      <button class="music-btn music-mute" id="music-mute" title="Mute / Unmute" aria-label="Mute">&#128266;</button>
+    </div>
+    <audio id="audio-player"></audio>
+  </div>
+
+  <!-- ── TOOLTIP POPOVER ── -->
+  <div class="kw-popover" id="kw-popover" role="tooltip" aria-hidden="true">
+    <div class="kw-popover-term" id="kw-popover-term"></div>
+    <div class="kw-popover-def" id="kw-popover-def"></div>
+    <div class="kw-popover-page" id="kw-popover-page"></div>
+  </div>
+
+  <!-- ── SCRIPTS ── -->
+  <script type="module" src="js/data/keywords.js"></script>
+  <script type="module" src="js/data/rules.js"></script>
+  <script type="module" src="js/data/factions.js"></script>
+  <script type="module" src="js/tooltips.js"></script>
+  <script type="module" src="js/tracker.js"></script>
+  <script type="module" src="js/music.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

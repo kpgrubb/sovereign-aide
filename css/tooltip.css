@@ -1,0 +1,85 @@
+/* ──────────────────────────────────────────────
+   KEYWORD TOOLTIP STYLES
+   ────────────────────────────────────────────── */
+
+/* ── KEYWORD SPAN ── */
+.kw {
+  color: var(--accent-amber);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  cursor: help;
+  transition: color 0.15s;
+}
+.kw:hover,
+.kw:focus {
+  color: var(--accent-gold);
+  outline: none;
+}
+
+/* ── POPOVER ── */
+.kw-popover {
+  position: fixed;
+  z-index: 9999;
+  width: 280px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-glow);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(201,162,39,0.1);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.kw-popover.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.kw-popover-term {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  margin-bottom: 0.4rem;
+}
+.kw-popover-def {
+  font-size: 0.83rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.kw-popover-page {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  font-family: var(--font-head);
+}
+.kw-popover-page .page-ref { margin-left: 0; }
+
+/* Arrow indicator */
+.kw-popover::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-glow);
+  transform: rotate(45deg);
+}
+.kw-popover.above::before {
+  bottom: -5px;
+  left: 50%;
+  translate: -50% 0;
+  border-top: none;
+  border-left: none;
+}
+.kw-popover.below::before {
+  top: -5px;
+  left: 50%;
+  translate: -50% 0;
+  border-bottom: none;
+  border-right: none;
+}

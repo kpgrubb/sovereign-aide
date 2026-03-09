@@ -1,0 +1,7 @@
+node_modules/
+extract-pdf.cjs
+extracted-rules.txt
+package-lock.json
+.DS_Store
+Thumbs.db
+*.log
