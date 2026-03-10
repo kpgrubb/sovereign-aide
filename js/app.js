@@ -82,7 +82,7 @@ function initFeaturedShowcase() {
   }
 
   frame.addEventListener('click', () => navigateTo('cards'));
-  setInterval(() => cycleShowcase(), 5000);
+  setInterval(() => cycleShowcase(), 7000);
 }
 
 function cycleShowcase() {
