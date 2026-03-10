@@ -26,7 +26,6 @@
         <button class="nav-btn" data-section="learn">LEARN</button>
         <button class="nav-btn" data-section="guide">PLAY GUIDE</button>
         <button class="nav-btn" data-section="reference">REFERENCE</button>
-        <button class="nav-btn" data-section="tracker">TRACKER</button>
         <button class="nav-btn" data-section="cards">CARDS</button>
       </nav>
       <div class="header-controls">
@@ -74,11 +73,6 @@
           <div class="qnc-icon">🔍</div>
           <div class="qnc-title">REFERENCE</div>
           <div class="qnc-desc">Glossary, factions, and keyword lookup</div>
-        </button>
-        <button class="quick-nav-card" data-section="tracker">
-          <div class="qnc-icon">📊</div>
-          <div class="qnc-title">GAME TRACKER</div>
-          <div class="qnc-desc">Track Echoes, Citizens, phases, and turns</div>
         </button>
       </div>
 
@@ -232,50 +226,6 @@
       <div class="card-grid" id="card-grid"></div>
     </section>
 
-    <!-- TRACKER -->
-    <section id="section-tracker" class="section" aria-label="Game Tracker">
-      <div class="section-header">
-        <h2>GAME TRACKER</h2>
-      </div>
-      <div id="tracker-setup" class="tracker-panel">
-        <h3>SETUP NEW GAME</h3>
-        <div class="setup-row">
-          <label>Number of Players</label>
-          <div class="player-count-btns">
-            <button class="player-count-btn active" data-count="2">2</button>
-            <button class="player-count-btn" data-count="3">3</button>
-            <button class="player-count-btn" data-count="4">4</button>
-          </div>
-        </div>
-        <div id="player-setup-rows">
-          <!-- populated by tracker.js -->
-        </div>
-        <div class="setup-row win-setting">
-          <label>Win Condition (Echoes)</label>
-          <div class="player-count-btns">
-            <button class="win-btn active" data-win="10">10</button>
-            <button class="win-btn" data-win="12">12</button>
-          </div>
-        </div>
-        <button class="btn-primary" id="start-game-btn">START GAME</button>
-      </div>
-
-      <div id="tracker-game" class="tracker-panel hidden">
-        <div class="tracker-top-bar">
-          <div class="phase-indicator" id="phase-indicator">
-            <!-- populated by tracker.js -->
-          </div>
-          <div class="tracker-controls">
-            <button class="btn-secondary" id="next-phase-btn">NEXT PHASE ›</button>
-            <button class="btn-secondary" id="reset-game-btn">RESET</button>
-          </div>
-        </div>
-        <div class="player-cards-grid" id="player-cards-grid">
-          <!-- populated by tracker.js -->
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ── MUSIC PLAYER ── -->
@@ -316,8 +266,7 @@
   <script type="module" src="js/data/rules.js"></script>
   <script type="module" src="js/data/factions.js"></script>
   <script type="module" src="js/tooltips.js"></script>
-  <script type="module" src="js/tracker.js"></script>
-  <script type="module" src="js/music.js"></script>
+<script type="module" src="js/music.js"></script>
   <script type="module" src="js/cards.js"></script>
   <script type="module" src="js/app.js"></script>
 </body>

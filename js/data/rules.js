@@ -365,29 +365,104 @@ export const PHASES = [
     page: 20,
     summary: "Optionally attack one opponent with one lane to breach their hand or forge.",
     beginner: `
-      <p>The Battle Phase is optional. If you attack:</p>
+      <p>The Battle Phase is optional. You attack by choosing <strong>one of your two lanes</strong> and declaring an attack against one opponent (only players immediately to your left or right).</p>
+
+      <ul>
+        <li>Attack their <strong>Leader lane</strong> → you breach their <strong>hand</strong></li>
+        <li>Attack their <strong>Citadel lane</strong> → you breach their <strong>forge</strong></li>
+        <li>Your <strong>front unit must be included</strong> in the attack.</li>
+        <li>You may only attack with <strong>one lane per turn</strong>, no matter how many players are in the game.</li>
+      </ul>
+
+      <h3>Unit Stats</h3>
+      <div class="battle-stat-explainer">
+        <img src="assets/cards/thumbs/fronts/card-001.jpg" alt="Unit card example" class="battle-thumb" />
+        <div class="battle-stat-list">
+          <div class="battle-stat-row"><span class="stat-badge atk">ATK</span> <div><strong>Attack</strong> — damage this unit deals to the unit it faces each round.</div></div>
+          <div class="battle-stat-row"><span class="stat-badge arm">ARM</span> <div><strong>Armor</strong> — blocks damage from <em>each individual hit</em>. Every attacker must overcome armor separately.</div></div>
+          <div class="battle-stat-row"><span class="stat-badge hp">HP</span> <div><strong>Health</strong> — citizen tokens on the card. When reduced to zero, the unit is destroyed.</div></div>
+        </div>
+      </div>
+
+      <h3>How Combat Resolves</h3>
+      <p>Units pair up from front to back. All damage within a round is <strong>simultaneous</strong>.</p>
       <ol>
-        <li><strong>Choose your attacking lane</strong> (Leader lane or Citadel lane). The <strong>front unit must be included</strong> in any attack.</li>
-        <li><strong>Choose the opponent</strong> (only players to your left or right) and their lane (Leader = attack their hand; Citadel = attack their forge).</li>
-        <li><strong>Resolve combat rounds:</strong> Pair up attackers with defenders from front to back. Each unit's armor blocks damage first — excess damage removes health tokens.</li>
-        <li><strong>If you breach:</strong> If all defenders are defeated, look at cards equal to your total attack value. Score any Echoes you find!</li>
+        <li>Your front unit faces their front unit. Each deals its ATK, reduced by the opposing unit's ARM. Excess damage removes health tokens.</li>
+        <li>Destroyed units are removed. Your surviving attackers <strong>slide forward</strong> to face the next row of defenders. Attackers that already fought do <em>not</em> deal damage again — but still receive it.</li>
+        <li>Continue until all defenders are destroyed (<strong>→ Breach!</strong>) or all attackers are defeated.</li>
       </ol>
+
+      <h3>Example: 2 Attackers vs 1 Defender</h3>
+      <div class="battle-seq">
+        <div class="battle-seq-step">
+          <div class="battle-seq-header">SETUP — Your 2 attackers vs their 1 defender</div>
+          <div class="battle-seq-content">
+            <div class="battle-seq-lanes">
+              <div class="battle-seq-lane">
+                <span class="seq-label">YOUR LANE (attacker)</span>
+                <div class="seq-unit active">FRONT &nbsp;<span class="seq-stats">4 ATK · 1 ARM · 2 HP</span></div>
+                <div class="seq-unit">BACK &nbsp;<span class="seq-stats">2 ATK · 0 ARM · 3 HP</span></div>
+              </div>
+              <div class="battle-seq-vs">⚔</div>
+              <div class="battle-seq-lane">
+                <span class="seq-label">THEIR LANE (defender)</span>
+                <div class="seq-unit active">FRONT &nbsp;<span class="seq-stats">3 ATK · 1 ARM · 3 HP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="battle-seq-step">
+          <div class="battle-seq-header">ROUND 1 — Front vs Front</div>
+          <div class="battle-seq-content">
+            <div class="battle-seq-result">
+              Your front unit deals <strong>4 ATK</strong>. Their armor absorbs 1 → their unit takes <strong>3 damage</strong> (0 HP remaining → destroyed).<br/>
+              Their unit deals <strong>3 ATK</strong>. Your armor absorbs 1 → your front unit takes <strong>2 damage</strong> (0 HP remaining → also destroyed).
+            </div>
+          </div>
+        </div>
+        <div class="battle-seq-step">
+          <div class="battle-seq-header">ROUND 2 — Back unit slides forward, no defenders left</div>
+          <div class="battle-seq-content">
+            <div class="battle-seq-result">
+              All defenders are gone. Your back unit (2 ATK, 3 HP) is the only survivor.
+            </div>
+          </div>
+        </div>
+        <div class="battle-seq-step breach">
+          <div class="battle-seq-header">BREACH!</div>
+          <div class="battle-seq-content">
+            <div class="battle-seq-result">
+              <strong>Breach value = 2</strong> (total ATK of all living attackers).<br/>
+              Look at 2 cards from their hand or forge (whichever lane you targeted). Score any Echoes you find!<br/>
+              <em>No Echoes found? They must discard 1 card (hand breach) or you return all cards (forge breach).</em>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="callout tip">
-        <span class="callout-label">Tip</span>
-        You may only attack with ONE lane per turn, regardless of how many players are in the game.
+        <span class="callout-label">Reminder</span>
+        Your back-row attacker never dealt damage in this example — it only received damage after sliding forward. This is how the "slide" mechanic works.
       </div>
     `,
     advanced: `
-      <h3>Combat Details</h3>
-      <p>Each attacking unit deals damage <strong>only once</strong>, to the first unit it encounters. Defending units deal full damage to <strong>each attacker</strong>.</p>
-      <p>Armor blocks damage from every hit — each source of damage must overcome armor individually.</p>
-      <p>All unit-to-unit damage is <strong>simultaneous</strong>. A unit at 0 health cannot be saved by restoring health with other effects.</p>
-      <h3>Breach Value</h3>
+      <h3>Combat Details <span class="page-ref">[p. 20]</span></h3>
+      <p>Each attacking unit deals damage <strong>only once</strong> — to the first defender it faces. After that, it slides forward and only receives damage. Defenders, by contrast, deal full damage to <strong>every attacker they face</strong> across multiple rounds.</p>
+      <p>Armor must be broken anew for <em>each separate damage source</em>. If two attackers each deal 2 ATK against a 1 ARM unit, each hit does 1 net damage — not 3.</p>
+      <p>All unit-to-unit damage within a round is <strong>simultaneous</strong>. A unit at 0 health cannot be saved mid-round by abilities or Reflexes.</p>
+
+      <h3>Breach Values <span class="page-ref">[p. 25]</span></h3>
       <ul>
-        <li><strong>No living defenders:</strong> Look at cards equal to the <em>total attack value</em> of all living attackers combined.</li>
-        <li><strong>Living defenders remain:</strong> Each living attacker's breach value is reduced to <strong>1</strong>. Bonus breach effects apply after this reduction.</li>
+        <li><strong>No living defenders:</strong> Breach value = total ATK of all <em>living</em> attackers combined.</li>
+        <li><strong>Living defenders remain:</strong> Each attacker's breach value is reduced to <strong>1</strong>. Any bonus breach effects apply after this reduction.</li>
       </ul>
-      <p>When breaching a hand: if you find Echoes, score them all. If no Echoes, you <strong>must</strong> discard one card. When breaching the forge: if no Echoes found, return all cards to their original positions.</p>
+      <p>
+        <strong>Breaching a hand:</strong> score all Echoes found. If none, opponent <em>must</em> discard one card.<br/>
+        <strong>Breaching the forge:</strong> if no Echoes found, return all viewed cards to their original face-down positions.
+      </p>
+
+      <h3>Out-of-Turn Play During Battle</h3>
+      <p>The entire Battle Phase is an open window — any player may play Reflexes or use card abilities at any point. This is the widest reaction window in the game. When multiple players want to act, initiative goes: active player → left → right.</p>
     `
   },
   {
