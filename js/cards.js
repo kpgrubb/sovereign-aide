@@ -239,11 +239,11 @@ const ANATOMY_EXAMPLES = [
     note: 'Played into your tableau. Generates resources and provides passive abilities each turn.',
     hotspots: [
       { top:  '7%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this card.' },
-      { top: '47%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Colony or Facility — determines the zone where it\'s played. May include a subtype (Colony — Factory, Facility — Lab, etc.).' },
-      { top: '61%', left: '6%',  num: 3, title: 'Ability Text',   desc: 'The card\'s unique ability. Card text always overrides the rulebook when there\'s a conflict.' },
+      { top: '55%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Colony or Facility — determines the zone where it\'s played. May include a subtype (Colony — Factory, Facility — Lab, etc.).' },
+      { top: '69%', left: '6%',  num: 3, title: 'Ability Text',   desc: 'The card\'s unique ability. Card text always overrides the rulebook when there\'s a conflict.' },
       { top: '81%', left: '6%',  num: 4, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect — just atmosphere.' },
       { top: '93%', left: '6%',  num: 5, title: 'Forge Cost',     desc: 'Number of Talent tokens required to forge this card. Pay this from your Citadel during the Forge phase.' },
-      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
+      { top: '93%', left: '88%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
     ],
   },
   {
@@ -253,11 +253,11 @@ const ANATOMY_EXAMPLES = [
     note: 'Deployed to battle lanes. Units attack opponents, defend your Citadel, and activate lane abilities.',
     hotspots: [
       { top:  '7%', left: '50%', num: 1, title: 'Card Name',       desc: 'The name of this unit.' },
-      { top: '47%', left: '6%',  num: 2, title: 'Card Type',       desc: 'Unit — with a subtype (Human, Mech, Drone, Airborne, etc.) that may interact with other abilities.' },
-      { top: '61%', left: '6%',  num: 3, title: 'Ability Text',    desc: 'Passive or triggered effects. Keywords like Airborne, Squad, and Resilient appear here and are defined on this card.' },
+      { top: '55%', left: '6%',  num: 2, title: 'Card Type',       desc: 'Unit — with a subtype (Human, Mech, Drone, Airborne, etc.) that may interact with other abilities.' },
+      { top: '69%', left: '6%',  num: 3, title: 'Ability Text',    desc: 'Passive or triggered effects. Keywords like Airborne, Squad, and Resilient appear here and are defined on this card.' },
       { top: '81%', left: '6%',  num: 4, title: 'Flavor Text',     desc: 'Italicized lore. No in-game effect.' },
       { top: '93%', left: '6%',  num: 5, title: 'Attack / Health', desc: 'Two icons at the bottom: Attack (damage this unit deals) and Health (damage needed to destroy it).' },
-      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol',  desc: 'Identifies which faction deck this card belongs to.' },
+      { top: '93%', left: '88%', num: 6, title: 'Faction Symbol',  desc: 'Identifies which faction deck this card belongs to.' },
     ],
   },
   {
@@ -267,11 +267,11 @@ const ANATOMY_EXAMPLES = [
     note: 'Played instantly — even during your opponent\'s turn. Resolves immediately, then goes to the discard pile.',
     hotspots: [
       { top:  '7%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this reflex card.' },
-      { top: '44%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Reflex — can be played at any time, even mid-battle or during your opponent\'s phase.' },
-      { top: '59%', left: '6%',  num: 3, title: 'Effect',         desc: 'A single, immediate effect. After it resolves, this card is discarded — it never enters the forge.' },
+      { top: '52%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Reflex — can be played at any time, even mid-battle or during your opponent\'s phase.' },
+      { top: '67%', left: '6%',  num: 3, title: 'Effect',         desc: 'A single, immediate effect. After it resolves, this card is discarded — it never enters the forge.' },
       { top: '80%', left: '6%',  num: 4, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect.' },
       { top: '93%', left: '6%',  num: 5, title: 'Forge Cost',     desc: 'Talents required to put this card into your forge.' },
-      { top:  '7%', left: '84%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
+      { top: '93%', left: '88%', num: 6, title: 'Faction Symbol', desc: 'Identifies which faction deck this card belongs to.' },
     ],
   },
   {
@@ -283,7 +283,7 @@ const ANATOMY_EXAMPLES = [
       { top: '15%', left: '50%', num: 1, title: 'Echo',           desc: 'This card is an Echo — worth 1 point toward your win condition when scored.' },
       { top: '50%', left: '6%',  num: 2, title: 'Echo Bonus',     desc: 'Some Echoes grant an immediate bonus when scored: a resource, card draw, or special effect.' },
       { top: '75%', left: '6%',  num: 3, title: 'Flavor Text',    desc: 'Italicized lore. No in-game effect.' },
-      { top: '15%', left: '84%', num: 4, title: 'Faction Symbol', desc: 'Identifies which faction this Echo belongs to.' },
+      { top: '93%', left: '88%', num: 4, title: 'Faction Symbol', desc: 'Identifies which faction this Echo belongs to.' },
     ],
   },
   {
