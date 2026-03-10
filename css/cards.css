@@ -2,12 +2,35 @@
    CARD LIBRARY & LIGHTBOX STYLES
    ────────────────────────────────────────────── */
 
-/* ── ANATOMY SECTION ── */
+/* ── ANATOMY SECTION (collapsible) ── */
 .anatomy-section {
   margin-bottom: 2.5rem;
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  background: var(--bg-panel);
 }
-.anatomy-intro {
-  margin-bottom: 1.25rem;
+.anatomy-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+}
+.anatomy-toggle::-webkit-details-marker { display: none; }
+.anatomy-toggle::marker { display: none; content: ''; }
+.anatomy-chevron {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--accent-gold);
+  border-bottom: 2px solid var(--accent-gold);
+  transform: rotate(-45deg);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+.anatomy-section[open] .anatomy-chevron {
+  transform: rotate(45deg);
 }
 .anatomy-title {
   font-family: var(--font-head);
@@ -15,12 +38,12 @@
   font-size: 0.9rem;
   letter-spacing: 0.16em;
   color: var(--accent-gold);
-  margin: 0 0 0.3rem;
+  margin: 0;
 }
 .anatomy-subtitle {
   font-size: 0.82rem;
   color: var(--text-dim);
-  margin: 0;
+  margin: 1rem 0 0;
 }
 
 /* Tabs */
