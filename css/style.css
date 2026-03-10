@@ -205,7 +205,7 @@ strong { color: var(--text-primary); font-weight: 700; }
 /* ── HOME BODY (nav left, card right) ── */
 .home-body {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 40%) 1fr;
   gap: 3rem;
   align-items: start;
   margin-top: 2rem;
@@ -299,6 +299,7 @@ strong { color: var(--text-primary); font-weight: 700; }
 #section-home {
   position: relative;
   overflow: hidden;
+  min-height: calc(100vh - var(--header-height) - var(--music-height));
 }
 #section-home .hero,
 #section-home .home-body {
@@ -318,10 +319,10 @@ strong { color: var(--text-primary); font-weight: 700; }
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40%;
-  background: radial-gradient(ellipse 80% 50% at 50% 100%,
-    rgba(201, 162, 39, 0.15) 0%,
-    rgba(201, 162, 39, 0.06) 40%,
+  height: 45%;
+  background: radial-gradient(ellipse 90% 60% at 50% 100%,
+    rgba(180, 100, 30, 0.14) 0%,
+    rgba(201, 140, 39, 0.06) 40%,
     transparent 70%);
   pointer-events: none;
 }

@@ -119,7 +119,7 @@ function initEmberParticles() {
 }
 
 function spawnEmbers(container, count) {
-  const colors = ['#c9a227', '#e8b84b', '#e8884b'];
+  const colors = ['#d4622a', '#c9702a', '#e8884b', '#b5441e', '#d98a3a'];
   for (let i = 0; i < count; i++) {
     const ember    = document.createElement('div');
     ember.className = 'ember';
@@ -127,8 +127,8 @@ function spawnEmbers(container, count) {
     const size     = 2 + Math.random() * 4;
     const left     = Math.random() * 100;
     const drift    = (Math.random() - 0.5) * 120;
-    const duration = 4 + Math.random() * 6;
-    const delay    = Math.random() * 2;
+    const duration = 7 + Math.random() * 8;
+    const delay    = Math.random() * 3;
 
     ember.style.width             = `${size}px`;
     ember.style.height            = `${size}px`;
