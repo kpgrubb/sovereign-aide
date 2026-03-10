@@ -202,24 +202,42 @@ strong { color: var(--text-primary); font-weight: 700; }
   margin-bottom: 0;
 }
 
+/* ── HOME BODY (nav left, card right) ── */
+.home-body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .home-body {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
 /* ── QUICK NAV GRID ── */
 .quick-nav-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
-  margin: 2.5rem 0;
-}
-@media (max-width: 600px) {
-  .quick-nav-grid { grid-template-columns: 1fr; }
 }
 .quick-nav-card {
   background: var(--bg-panel);
   border: 1px solid var(--border-panel);
   border-radius: var(--radius-lg);
-  padding: 1.5rem 1.25rem;
-  text-align: center;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
   transition: all 0.2s ease;
   color: var(--text-primary);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1rem;
+  align-items: center;
 }
 .quick-nav-card:hover {
   background: var(--bg-raised);
@@ -227,24 +245,23 @@ strong { color: var(--text-primary); font-weight: 700; }
   box-shadow: var(--shadow-glow);
   transform: translateY(-2px);
 }
-.qnc-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+.qnc-icon {
+  font-size: 1.6rem;
+  grid-row: 1 / -1;
+}
 .qnc-title {
   font-family: var(--font-head);
   font-weight: 800;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
   color: var(--accent-gold);
-  margin-bottom: 0.4rem;
 }
 .qnc-desc { font-size: 0.8rem; color: var(--text-secondary); }
 
 /* ── FEATURED CARD SHOWCASE ── */
 .featured-card-showcase {
-  margin: 1rem auto 2rem;
   text-align: center;
   max-width: 320px;
-  position: relative;
-  z-index: 1;
 }
 .showcase-label {
   font-family: var(--font-head);
@@ -293,8 +310,7 @@ strong { color: var(--text-primary); font-weight: 700; }
   overflow: hidden;
 }
 #section-home .hero,
-#section-home .quick-nav-grid,
-#section-home .featured-card-showcase {
+#section-home .home-body {
   position: relative;
   z-index: 1;
 }
