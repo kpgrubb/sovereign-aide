@@ -6,10 +6,11 @@ package-lock.json
 Thumbs.db
 *.log
 
-# Full-size card images (too large for git — use thumbs instead)
+# Raw full-size cards and source pages (too large for git)
 assets/cards/fronts/
 assets/cards/backs/
 assets/cards/pages/
+# zoom/ and thumbs/ are committed — they're web-ready resized versions
 
 # Dev utility scripts
 slice-cards.cjs
