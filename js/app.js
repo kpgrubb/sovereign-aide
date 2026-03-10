@@ -6,6 +6,9 @@ import { KEYWORDS, KEYWORD_ALIASES } from './data/keywords.js';
 import { FACTIONS } from './data/factions.js';
 import { WORLD_INTRO, FACTION_LORE, LILIN_LORE } from './data/lore.js';
 import { annotateKeywords } from './tooltips.js';
+import {
+  CARD_COUNT, getFactionForCard, isTokenCard, isEchoCard, isSpecialCard, thumbPath
+} from './data/cards.js';
 
 // ── STATE ──
 let activeSection = 'home';
@@ -21,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGuideSection(activeGuideId);
   renderRefContent(activeRefTab);
   initQuickNavCards();
+  initFeaturedShowcase();
+  initEmberParticles();
 });
 
 // ── NAVIGATION ──
@@ -48,6 +53,94 @@ function initQuickNavCards() {
   document.querySelectorAll('.quick-nav-card').forEach(card => {
     card.addEventListener('click', () => navigateTo(card.dataset.section));
   });
+}
+
+// ── FEATURED CARD SHOWCASE ──
+function getRandomCardIndex() {
+  let attempts = 0;
+  while (attempts < 200) {
+    const idx = Math.floor(Math.random() * CARD_COUNT);
+    if (!isTokenCard(idx) && !isEchoCard(idx) && !isSpecialCard(idx)) return idx;
+    attempts++;
+  }
+  return 0;
+}
+
+function initFeaturedShowcase() {
+  const imgEl     = document.getElementById('showcase-img');
+  const nextEl    = document.getElementById('showcase-img-next');
+  const factionEl = document.getElementById('showcase-faction');
+  const frame     = document.getElementById('showcase-frame');
+  if (!imgEl || !nextEl) return;
+
+  const firstIdx = getRandomCardIndex();
+  imgEl.src = thumbPath(firstIdx);
+  const faction = getFactionForCard(firstIdx);
+  if (factionEl && faction) {
+    factionEl.textContent = faction.name;
+    factionEl.style.color = faction.color;
+  }
+
+  frame.addEventListener('click', () => navigateTo('cards'));
+  setInterval(() => cycleShowcase(), 5000);
+}
+
+function cycleShowcase() {
+  const imgEl     = document.getElementById('showcase-img');
+  const nextEl    = document.getElementById('showcase-img-next');
+  const factionEl = document.getElementById('showcase-faction');
+
+  const newIdx = getRandomCardIndex();
+  nextEl.src = thumbPath(newIdx);
+
+  nextEl.classList.add('fade-in');
+  imgEl.classList.add('fade-out');
+
+  const faction = getFactionForCard(newIdx);
+  if (factionEl && faction) {
+    factionEl.textContent = faction.name;
+    factionEl.style.color = faction.color;
+  }
+
+  setTimeout(() => {
+    imgEl.src = nextEl.src;
+    imgEl.classList.remove('fade-out');
+    nextEl.classList.remove('fade-in');
+  }, 850);
+}
+
+// ── EMBER PARTICLES ──
+function initEmberParticles() {
+  const container = document.getElementById('ember-particles');
+  if (!container) return;
+
+  spawnEmbers(container, 15);
+  setInterval(() => spawnEmbers(container, 3), 2000);
+}
+
+function spawnEmbers(container, count) {
+  const colors = ['#c9a227', '#e8b84b', '#e8884b'];
+  for (let i = 0; i < count; i++) {
+    const ember    = document.createElement('div');
+    ember.className = 'ember';
+
+    const size     = 2 + Math.random() * 4;
+    const left     = Math.random() * 100;
+    const drift    = (Math.random() - 0.5) * 120;
+    const duration = 4 + Math.random() * 6;
+    const delay    = Math.random() * 2;
+
+    ember.style.width             = `${size}px`;
+    ember.style.height            = `${size}px`;
+    ember.style.left              = `${left}%`;
+    ember.style.setProperty('--drift', `${drift}px`);
+    ember.style.animationDuration = `${duration}s`;
+    ember.style.animationDelay    = `${delay}s`;
+    ember.style.background        = colors[Math.floor(Math.random() * colors.length)];
+
+    container.appendChild(ember);
+    setTimeout(() => ember.remove(), (duration + delay) * 1000 + 100);
+  }
 }
 
 // ── GUIDE SECTION (unified LEARN + PLAY GUIDE) ──

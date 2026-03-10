@@ -35,15 +35,12 @@
 
     <!-- HOME -->
     <section id="section-home" class="section active" aria-label="Home">
+      <div class="ember-particles" id="ember-particles" aria-hidden="true"></div>
+
       <div class="hero">
         <div class="hero-text">
           <h1 class="hero-title">WELCOME TO <span class="accent">APSYNTION</span></h1>
           <p class="hero-sub">A far-future society builder. A tactical card game for 2–4 players. Forge your empire. Collect ten Echoes. Survive.</p>
-          <div class="hero-win-condition">
-            <span class="win-label">WIN CONDITION</span>
-            <span class="win-rule">First player to score <strong>10 Echoes</strong> wins<span class="page-ref">[p. 4]</span></span>
-            <span class="win-note">(12 Echoes recommended for 2-player games)</span>
-          </div>
         </div>
       </div>
 
@@ -58,29 +55,20 @@
           <div class="qnc-title">REFERENCE</div>
           <div class="qnc-desc">Glossary, factions, and keyword lookup</div>
         </button>
+        <button class="quick-nav-card" data-section="cards">
+          <div class="qnc-icon">🃏</div>
+          <div class="qnc-title">CARDS</div>
+          <div class="qnc-desc">Browse all 558 cards across 10 factions</div>
+        </button>
       </div>
 
-      <div class="overview-grid">
-        <div class="overview-card">
-          <h3>YOUR DECK</h3>
-          <p>Each faction deck contains <strong>32 unique cards</strong> and <strong>20 Echoes</strong> — 52 cards total. Your deck defines your faction's identity and strategy.</p>
-          <span class="page-ref">[p. 4]</span>
+      <div class="featured-card-showcase" id="featured-card-showcase">
+        <div class="showcase-label">FEATURED CARD</div>
+        <div class="showcase-frame" id="showcase-frame">
+          <img class="showcase-img" id="showcase-img" src="" alt="Featured card" />
+          <img class="showcase-img showcase-img-next" id="showcase-img-next" src="" alt="" />
         </div>
-        <div class="overview-card">
-          <h3>CITIZENS</h3>
-          <p><strong>Talents</strong> and <strong>Drones</strong> are your primary resources — not money. They work facilities, health your units, and power your abilities.</p>
-          <span class="page-ref">[p. 6]</span>
-        </div>
-        <div class="overview-card">
-          <h3>SIX PHASES</h3>
-          <p>Each turn flows through <strong>Growth → Upkeep → Forge → Battle → Move → Draw</strong>. Master the rhythm and you master the game.</p>
-          <span class="page-ref">[p. 10]</span>
-        </div>
-        <div class="overview-card">
-          <h3>THE GOLDEN RULE</h3>
-          <p>If a card ever contradicts something in this rulebook, <strong>the card text overrides</strong> anything written here.</p>
-          <span class="page-ref">[p. 30]</span>
-        </div>
+        <div class="showcase-faction" id="showcase-faction"></div>
       </div>
     </section>
 
