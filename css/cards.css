@@ -312,7 +312,11 @@
   border-bottom: 1px solid var(--border-subtle);
   border-left: 1px solid var(--border-subtle);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
-  aspect-ratio: 85 / 110;
+  aspect-ratio: 734 / 1009; /* portrait — matches exact crop dimensions */
+}
+/* Landscape cards (531+): images are pre-rotated, display at natural landscape ratio */
+.card-thumb-wrap.landscape {
+  aspect-ratio: 1009 / 734;
 }
 .card-thumb-wrap:hover {
   transform: translateY(-3px) scale(1.01);

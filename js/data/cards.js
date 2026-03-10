@@ -16,7 +16,8 @@
 // ──────────────────────────────────────────────
 
 export const CARD_COUNT       = 558;
-export const SPECIAL_START    = 520;   // cards 520+ are landscape/rotated
+export const SPECIAL_START    = 520;   // cards 520+ are Leaders/Citadels group
+export const LANDSCAPE_START  = 531;   // cards 531+ are landscape (pages 60-62), pre-rotated in images
 export const FACTION_SIZE     = 52;    // 32 unique + 20 Echoes per faction
 export const UNIQUE_PER_DECK  = 32;
 export const ECHOES_PER_DECK  = 20;
@@ -49,12 +50,24 @@ export function isSpecialCard(index) {
   return index >= SPECIAL_START;
 }
 
+export function isLandscapeCard(index) {
+  return index >= LANDSCAPE_START;
+}
+
 // Grid thumbnails — 240px wide, lazy-loaded
-export function thumbPath(index) {
+export function thumbPath(index, side = 'front') {
+  if (side === 'back') {
+    if (index >= LANDSCAPE_START) return `assets/cards/thumbs/backs/card-${String(index).padStart(3,'0')}.jpg`;
+    return 'assets/cards/thumbs/backs/tracker.jpg';
+  }
   return `assets/cards/thumbs/fronts/card-${String(index).padStart(3,'0')}.jpg`;
 }
 
-// Lightbox zoom — 520px wide, fully readable
-export function fullPath(index) {
+// Lightbox zoom — 780px wide, fully readable
+export function fullPath(index, side = 'front') {
+  if (side === 'back') {
+    if (index >= LANDSCAPE_START) return `assets/cards/zoom/backs/card-${String(index).padStart(3,'0')}.jpg`;
+    return 'assets/cards/zoom/backs/tracker.jpg';
+  }
   return `assets/cards/zoom/fronts/card-${String(index).padStart(3,'0')}.jpg`;
 }

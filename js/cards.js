@@ -3,13 +3,14 @@
 // ──────────────────────────────────────────────
 import {
   CARD_COUNT, SPECIAL_START, FACTION_RANGES,
-  getFactionForCard, isEchoCard, isSpecialCard,
+  getFactionForCard, isEchoCard, isSpecialCard, isLandscapeCard,
   thumbPath, fullPath
 } from './data/cards.js';
 
 // ── STATE ──
 let activeFaction = 'all';
 let activeType    = 'all';
+let activeSide    = 'front';   // 'front' | 'back'
 let filteredCards = [];
 let lightboxIdx   = 0;
 
@@ -17,6 +18,7 @@ let lightboxIdx   = 0;
 document.addEventListener('DOMContentLoaded', () => {
   buildFactionPills();
   buildTypeFilter();
+  buildSideToggle();
   buildAnatomyPanel();
   applyFilters();
   initLightbox();
@@ -60,6 +62,18 @@ function buildTypeFilter() {
       btn.classList.add('active');
       activeType = btn.dataset.type;
       applyFilters();
+    });
+  });
+}
+
+// ── SIDE TOGGLE ──
+function buildSideToggle() {
+  document.querySelectorAll('[data-side]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('[data-side]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeSide = btn.dataset.side;
+      renderGrid();
     });
   });
 }
@@ -126,9 +140,12 @@ function renderGrid() {
     wrap.style.borderTopColor = accentColor;
     wrap.style.setProperty('--card-accent', accentColor + '55');
 
+    const isLand = isLandscapeCard(cardIdx);
+    if (isLand) wrap.classList.add('landscape');
+
     const img = document.createElement('img');
     img.className = 'card-thumb-img';
-    img.src = thumbPath(cardIdx);
+    img.src = thumbPath(cardIdx, activeSide);
     img.alt = `Card ${cardIdx}`;
     img.loading = 'lazy';
     wrap.appendChild(img);
@@ -201,7 +218,7 @@ function renderLightboxCard() {
   const img  = document.getElementById('lightbox-front-img');
   const info = document.getElementById('lightbox-info');
 
-  img.src = fullPath(cardIdx);
+  img.src = fullPath(cardIdx, activeSide);
 
   const typeLabel    = isSpec ? 'Leader / Citadel' : isEcho ? 'Echo' : 'Faction Card';
   const factionLabel = faction ? faction.name : '';
@@ -304,7 +321,7 @@ function buildAnatomyPanel() {
     panel.className = 'anatomy-example' + (i === 0 ? ' active' : '');
     panel.dataset.exampleId = ex.id;
 
-    const imgSrc = `assets/cards/fronts/card-${String(ex.cardIdx).padStart(3,'0')}.jpg`;
+    const imgSrc = fullPath(ex.cardIdx, 'front');
 
     const hotspotsHtml = ex.hotspots.map(h => `
       <button class="anatomy-hotspot" data-num="${h.num}"
