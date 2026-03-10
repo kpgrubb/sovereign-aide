@@ -9,7 +9,7 @@ import {
 
 // ── STATE ──
 let activeFaction = 'all';
-let activeType    = 'all';
+let activeType    = 'noecho';
 let activeSide    = 'front';   // 'front' | 'back'
 let filteredCards = [];
 let lightboxIdx   = 0;
@@ -88,7 +88,8 @@ function applyFilters() {
 
     if (activeFaction !== 'all' && faction?.name !== activeFaction) continue;
 
-    if (activeType === 'echo'    && !isEcho)           continue;
+    if (activeType === 'noecho'  && isEcho)             continue;
+    if (activeType === 'echo'    && !isEcho)            continue;
     if (activeType === 'unique'  && (isEcho || isSpec)) continue;
     if (activeType === 'special' && !isSpec)            continue;
 

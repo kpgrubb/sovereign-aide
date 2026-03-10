@@ -28,16 +28,6 @@
         <button class="nav-btn" data-section="reference">REFERENCE</button>
         <button class="nav-btn" data-section="cards">CARDS</button>
       </nav>
-      <div class="header-controls">
-        <label class="skill-toggle" title="Toggle beginner / advanced mode">
-          <span class="toggle-label" id="skill-label">BEGINNER</span>
-          <div class="toggle-switch">
-            <input type="checkbox" id="skill-toggle-input" />
-            <span class="toggle-slider"></span>
-          </div>
-          <span class="toggle-label" id="skill-label-adv">ADVANCED</span>
-        </label>
-      </div>
     </div>
   </header>
 
@@ -53,7 +43,7 @@
           <div class="hero-win-condition">
             <span class="win-label">WIN CONDITION</span>
             <span class="win-rule">First player to score <strong>10 Echoes</strong> wins<span class="page-ref">[p. 4]</span></span>
-            <span class="win-note adv-only">(12 Echoes recommended for 2-player games)</span>
+            <span class="win-note">(12 Echoes recommended for 2-player games)</span>
           </div>
         </div>
       </div>
@@ -208,8 +198,8 @@
           <div class="filter-row">
             <span class="filter-label">TYPE</span>
             <div class="filter-pills">
-              <button class="filter-pill active" data-type="all">ALL</button>
-              <button class="filter-pill" data-type="unique">UNIQUE</button>
+              <button class="filter-pill" data-type="all">ALL</button>
+              <button class="filter-pill active" data-type="noecho">CARDS</button>
               <button class="filter-pill" data-type="echo">ECHOES</button>
               <button class="filter-pill" data-type="special">LEADERS &amp; CITADELS</button>
             </div>

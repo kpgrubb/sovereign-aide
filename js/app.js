@@ -11,12 +11,10 @@ let activeSection = 'home';
 let activeLearnTab = 'deck';
 let activePhase = 0;
 let activeRefTab = 'glossary';
-let advancedMode = false;
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
-  initSkillToggle();
   initLearnSidebar();
   initPhaseTrack();
   initRefTabs();
@@ -52,26 +50,6 @@ function initQuickNavCards() {
   document.querySelectorAll('.quick-nav-card').forEach(card => {
     card.addEventListener('click', () => navigateTo(card.dataset.section));
   });
-}
-
-// ── SKILL TOGGLE ──
-function initSkillToggle() {
-  const toggle = document.getElementById('skill-toggle-input');
-  const saved = localStorage.getItem('sovereign-advanced') === 'true';
-  toggle.checked = saved;
-  setAdvancedMode(saved, false);
-
-  toggle.addEventListener('change', () => setAdvancedMode(toggle.checked, true));
-}
-
-function setAdvancedMode(isAdvanced, rerender) {
-  advancedMode = isAdvanced;
-  document.body.classList.toggle('advanced-mode', isAdvanced);
-  localStorage.setItem('sovereign-advanced', isAdvanced);
-  if (rerender) {
-    renderLearnContent(activeLearnTab);
-    renderPhaseDetail(activePhase);
-  }
 }
 
 // ── LEARN SECTION ──
@@ -119,11 +97,9 @@ function renderPhaseDetail(idx) {
   const phase = PHASES[idx];
   if (!phase) return;
 
-  const advHtml = advancedMode && phase.advanced ? `
-    <div class="rules-block" style="margin-top:1rem">
-      <h3>Advanced Notes <span class="page-ref">[p. ${phase.page}]</span></h3>
-      ${phase.advanced}
-    </div>` : '';
+  const advHtml = phase.advanced ? `
+    <hr class="divider" />
+    ${phase.advanced}` : '';
 
   container.innerHTML = `
     <div class="rules-block">
@@ -133,8 +109,8 @@ function renderPhaseDetail(idx) {
         ${phase.summary}
       </div>
       ${phase.beginner}
+      ${advHtml}
     </div>
-    ${advHtml}
   `;
   annotateKeywords(container);
 }

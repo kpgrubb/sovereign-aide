@@ -87,8 +87,6 @@ strong { color: var(--text-primary); font-weight: 700; }
 }
 
 /* ── BEGINNER/ADVANCED VISIBILITY ── */
-body.advanced-mode .beg-only { display: none !important; }
-body:not(.advanced-mode) .adv-only { display: none !important; }
 
 /* ── HEADER ── */
 .site-header {
@@ -160,58 +158,6 @@ body:not(.advanced-mode) .adv-only { display: none !important; }
   border-color: var(--border-panel);
 }
 
-/* ── SKILL TOGGLE ── */
-.skill-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.toggle-label {
-  font-family: var(--font-head);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--text-dim);
-  transition: color 0.18s;
-}
-body.advanced-mode .skill-toggle #skill-label-adv { color: var(--accent-gold); }
-body:not(.advanced-mode) .skill-toggle #skill-label { color: var(--accent-gold); }
-.toggle-switch {
-  position: relative;
-  width: 38px;
-  height: 20px;
-}
-.toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
-.toggle-slider {
-  position: absolute;
-  inset: 0;
-  background: var(--bg-raised);
-  border: 1px solid var(--border-panel);
-  border-radius: 20px;
-  transition: background 0.2s;
-  cursor: pointer;
-}
-.toggle-slider::after {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 14px;
-  height: 14px;
-  background: var(--text-dim);
-  border-radius: 50%;
-  transition: transform 0.2s, background 0.2s;
-}
-.toggle-switch input:checked + .toggle-slider {
-  background: var(--accent-glow);
-  border-color: var(--border-glow);
-}
-.toggle-switch input:checked + .toggle-slider::after {
-  transform: translateX(18px);
-  background: var(--accent-gold);
-}
 
 /* ── MAIN CONTENT ── */
 .main-content {
