@@ -49,10 +49,20 @@ export function isSpecialCard(index) {
   return index >= SPECIAL_START;
 }
 
-export function thumbPath(index, side = 'fronts') {
-  return `assets/cards/thumbs/${side}/card-${String(index).padStart(3,'0')}.jpg`;
+// Thumbnails: served from GitHub Pages (small, ~240px wide)
+export function thumbPath(index) {
+  return `assets/cards/thumbs/fronts/card-${String(index).padStart(3,'0')}.jpg`;
 }
 
-export function fullPath(index, side = 'fronts') {
-  return `assets/cards/${side}/card-${String(index).padStart(3,'0')}.jpg`;
+// Full-size: served from Firebase Storage (set FIREBASE_BASE after setup)
+// Format: https://firebasestorage.googleapis.com/v0/b/PROJECT.appspot.com/o/fronts%2Fcard-000.jpg?alt=media
+const FIREBASE_BASE = '';  // ← paste your Firebase Storage base URL here
+
+export function fullPath(index) {
+  const file = `card-${String(index).padStart(3,'0')}.jpg`;
+  if (FIREBASE_BASE) {
+    return `${FIREBASE_BASE}${encodeURIComponent(file)}?alt=media`;
+  }
+  // Fallback to thumbnail if Firebase not yet configured
+  return thumbPath(index);
 }

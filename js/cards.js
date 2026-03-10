@@ -10,18 +10,14 @@ import {
 // ── STATE ──
 let activeFaction = 'all';
 let activeType    = 'all';
-let activeView    = 'front';
 let filteredCards = [];
 let lightboxIdx   = 0;
-let lightboxFlipped = false;
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   buildFactionPills();
   buildTypeFilter();
-  buildViewFilter();
   buildAnatomyPanel();
-  initAnatomyToggle();
   applyFilters();
   initLightbox();
 });
@@ -68,18 +64,6 @@ function buildTypeFilter() {
   });
 }
 
-// ── VIEW FILTER ──
-function buildViewFilter() {
-  document.querySelectorAll('[data-view]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeView = btn.dataset.view;
-      renderGrid();
-    });
-  });
-}
-
 // ── FILTER LOGIC ──
 function applyFilters() {
   filteredCards = [];
@@ -109,7 +93,6 @@ function renderGrid() {
   if (!grid) return;
 
   const frag = document.createDocumentFragment();
-  const side = activeView === 'back' ? 'backs' : 'fronts';
   const showGroupHeaders = activeFaction === 'all' && activeType !== 'special';
 
   let lastFactionName = null;
@@ -145,7 +128,7 @@ function renderGrid() {
 
     const img = document.createElement('img');
     img.className = 'card-thumb-img';
-    img.src = thumbPath(cardIdx, side);
+    img.src = thumbPath(cardIdx);
     img.alt = `Card ${cardIdx}`;
     img.loading = 'lazy';
     wrap.appendChild(img);
@@ -176,28 +159,22 @@ function initLightbox() {
   const closeBtn = document.getElementById('lightbox-close');
   const prevBtn  = document.getElementById('lightbox-prev');
   const nextBtn  = document.getElementById('lightbox-next');
-  const flipBtn  = document.getElementById('lightbox-flip-btn');
-  const card     = document.getElementById('lightbox-card');
 
   closeBtn.addEventListener('click', closeLightbox);
   lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
   prevBtn.addEventListener('click', () => navigateLightbox(-1));
   nextBtn.addEventListener('click', () => navigateLightbox(1));
-  flipBtn.addEventListener('click', flipLightbox);
-  card.addEventListener('click', flipLightbox);
 
   document.addEventListener('keydown', e => {
     if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape')      closeLightbox();
-    if (e.key === 'ArrowLeft')   navigateLightbox(-1);
-    if (e.key === 'ArrowRight')  navigateLightbox(1);
-    if (e.key === 'f' || e.key === 'F') flipLightbox();
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
   });
 }
 
 function openLightbox(filteredPos) {
-  lightboxIdx     = filteredPos;
-  lightboxFlipped = false;
+  lightboxIdx = filteredPos;
   renderLightboxCard();
   const lb = document.getElementById('lightbox');
   lb.classList.add('open');
@@ -212,43 +189,26 @@ function closeLightbox() {
 
 function navigateLightbox(dir) {
   lightboxIdx = (lightboxIdx + dir + filteredCards.length) % filteredCards.length;
-  lightboxFlipped = false;
   renderLightboxCard();
 }
 
-function flipLightbox() {
-  lightboxFlipped = !lightboxFlipped;
-  document.getElementById('lightbox-card').classList.toggle('flipped', lightboxFlipped);
-  document.getElementById('lightbox-flip-btn').textContent = lightboxFlipped ? 'FLIP TO FRONT' : 'FLIP CARD';
-}
-
 function renderLightboxCard() {
-  const cardIdx  = filteredCards[lightboxIdx];
-  const isSpec   = isSpecialCard(cardIdx);
-  const faction  = getFactionForCard(cardIdx);
-  const isEcho   = isEchoCard(cardIdx);
+  const cardIdx = filteredCards[lightboxIdx];
+  const isSpec  = isSpecialCard(cardIdx);
+  const faction = getFactionForCard(cardIdx);
+  const isEcho  = isEchoCard(cardIdx);
 
-  const card     = document.getElementById('lightbox-card');
-  const frontImg = document.getElementById('lightbox-front-img');
-  const backImg  = document.getElementById('lightbox-back-img');
-  const info     = document.getElementById('lightbox-info');
-  const flipBtn  = document.getElementById('lightbox-flip-btn');
+  const img  = document.getElementById('lightbox-front-img');
+  const info = document.getElementById('lightbox-info');
 
-  card.classList.remove('flipped');
-  card.classList.toggle('landscape', isSpec);
-  flipBtn.textContent = 'FLIP CARD';
-
-  frontImg.src = fullPath(cardIdx, 'fronts');
-  backImg.src  = fullPath(cardIdx, 'backs');
+  img.src = fullPath(cardIdx);
 
   const typeLabel    = isSpec ? 'Leader / Citadel' : isEcho ? 'Echo' : 'Faction Card';
   const factionLabel = faction ? faction.name : '';
   info.innerHTML = `
-    <span style="color:${faction?.color || 'var(--text-dim)'}">
-      ${factionLabel}
-    </span>
+    <span style="color:${faction?.color || 'var(--text-dim)'}">${factionLabel}</span>
     &nbsp;·&nbsp; ${typeLabel}
-    &nbsp;·&nbsp; Card ${lightboxIdx + 1} of ${filteredCards.length}
+    &nbsp;·&nbsp; ${lightboxIdx + 1} of ${filteredCards.length}
   `;
 }
 

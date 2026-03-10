@@ -368,60 +368,14 @@
   max-height: 95vh;
 }
 
-/* 3D flip container */
-.lightbox-card {
-  position: relative;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.55s ease;
-}
-.lightbox-card.landscape {
-  /* rotate the whole card 90deg in the lightbox */
-  transform: rotate(-90deg);
-  max-height: 60vw;
-}
-.lightbox-card.flipped {
-  transform: rotateY(180deg);
-}
-.lightbox-card.landscape.flipped {
-  transform: rotate(-90deg) rotateY(180deg);
-}
-
-.lightbox-front,
-.lightbox-back {
+.lightbox-img {
   display: block;
-  max-height: 74vh;
-  max-width: 78vw;
+  max-height: 80vh;
+  max-width: 80vw;
   width: auto;
   height: auto;
   border-radius: var(--radius-md);
   box-shadow: 0 8px 48px rgba(0,0,0,0.8);
-  backface-visibility: hidden;
-}
-.lightbox-back {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  transform: rotateY(180deg);
-  object-fit: cover;
-}
-
-.lightbox-flip-btn {
-  padding: 0.5rem 1.5rem;
-  font-family: var(--font-head);
-  font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  color: var(--accent-gold);
-  background: transparent;
-  border: 1px solid var(--border-panel);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.lightbox-flip-btn:hover {
-  background: var(--bg-raised);
-  border-color: var(--accent-gold);
 }
 
 .lightbox-info {
