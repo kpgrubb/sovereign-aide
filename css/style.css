@@ -783,3 +783,165 @@ strong { color: var(--text-primary); font-weight: 700; }
   padding-left: 1rem;
   margin: 1rem 0;
 }
+
+/* ── LORE SECTION ── */
+.lore-world-intro {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.5rem;
+  margin-bottom: 2.5rem;
+  max-width: 860px;
+}
+.lore-world-title {
+  font-family: var(--font-head);
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.lore-world-body p {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 0.9rem;
+}
+.lore-world-body p:last-child { margin-bottom: 0; }
+.lore-attribution {
+  margin-top: 1.25rem;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+}
+
+.lore-section-label {
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--accent-gold);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.lore-factions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.lore-faction-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.lore-faction-name {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lore-faction-body p {
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 0.65rem;
+}
+.lore-faction-body p:last-child { margin-bottom: 0; }
+
+/* Tale expand/collapse */
+.lore-tale {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 0.75rem;
+}
+.lore-tale-toggle {
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--tale-color, var(--accent-gold));
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  padding: 0.25rem 0;
+  text-transform: uppercase;
+}
+.lore-tale-toggle::-webkit-details-marker { display: none; }
+.lore-tale-toggle::marker { display: none; }
+.lore-tale-icon {
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+}
+details[open] .lore-tale-icon { transform: rotate(90deg); }
+.lore-tale-text {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--bg-raised);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--tale-color, var(--accent-dim));
+}
+.lore-tale-text p {
+  font-size: 0.88rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+  font-style: italic;
+}
+.lore-tale-text p:last-child { margin-bottom: 0; }
+.lore-tale-text em { font-style: normal; color: var(--accent-amber); }
+
+/* Lilin section */
+.lore-lilin-section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-top: 3px solid #7bc4a0;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+.lore-lilin-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.lore-lilin-name {
+  font-family: var(--font-head);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lore-lilin-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+.lore-translation-note {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  padding: 0.75rem 1rem;
+  background: var(--bg-raised);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--border-panel);
+  line-height: 1.6;
+}
+.lore-translation-note em {
+  color: var(--text-secondary);
+  font-style: italic;
+}

@@ -1,39 +1,42 @@
 // ──────────────────────────────────────────────
 // CARD MANIFEST
-// 558 cards total: 520 faction cards + 38 special
-// Faction order in PDF (52 cards each = 32 unique + 20 Echoes):
-//   0   Cult of Apsynthos       000–051
-//   1   Undercity Brotherhood   052–103
-//   2   Neogenesis Church       104–155
-//   3   Utopian Remnant         156–207
-//   4   Machina Sapiens         208–259
-//   5   Myrmidon Dominion       260–311
-//   6   The Dronestate          312–363
-//   7   Windwalker Clans        364–415
-//   8   Coriolan Exiles         416–467  (expansion)
-//   9   Red Hegemony            468–519  (expansion)
-//  Special (Leaders + Citadels, landscape): 520–557
+// 558 cards total
+// PDF page order (6 pages × 9 cards = 54 per faction; Windwalker = 5 pages = 45):
+//   Pages  1-6:  Neogenesis Church       000–053
+//   Pages  7-12: Coriolan Exiles         054–107  (expansion)
+//   Pages 13-18: Cult of Apsynthos       108–161
+//   Pages 19-24: The Dronestate          162–215
+//   Pages 25-30: Red Hegemony            216–269  (expansion)
+//   Pages 31-36: Machina Sapiens         270–323
+//   Pages 37-42: Myrmidon Dominion       324–377
+//   Pages 43-48: Utopian Remnant         378–431
+//   Pages 49-54: Undercity Brotherhood   432–485
+//   Pages 55-59: Windwalker Clans        486–530  (5 pages, 45 cards)
+//   Pages 60-62: Leaders & Citadels      531–557
+//
+// Per faction: indices 0–29 within range = unique cards
+//              indices 30+ within range  = echo cards (excluded from main grid)
+//
+// Tokens (printing artifacts, excluded from all views): 550, 552–557
 // ──────────────────────────────────────────────
 
 export const CARD_COUNT       = 558;
-export const SPECIAL_START    = 520;   // cards 520+ are Leaders/Citadels group
-export const LANDSCAPE_START  = 531;   // cards 531+ are landscape (pages 60-62), pre-rotated in images
-export const FACTION_SIZE     = 52;    // 32 unique + 20 Echoes per faction
-export const UNIQUE_PER_DECK  = 32;
-export const ECHOES_PER_DECK  = 20;
+export const SPECIAL_START    = 531;   // cards 531+ are Leaders/Citadels/tokens (landscape)
+export const LANDSCAPE_START  = 531;   // all special cards are landscape format
+export const UNIQUE_PER_DECK  = 30;    // first 30 cards per faction range are unique
 
 export const FACTION_RANGES = [
-  { name: "Cult of Apsynthos",     start: 0,   end: 51,  color: "#9b7fd4" },
-  { name: "Undercity Brotherhood", start: 52,  end: 103, color: "#e06b3e" },
-  { name: "Neogenesis Church",     start: 104, end: 155, color: "#e0c44a" },
-  { name: "Utopian Remnant",       start: 156, end: 207, color: "#4a9eff" },
-  { name: "Machina Sapiens",       start: 208, end: 259, color: "#52d9d9" },
-  { name: "Myrmidon Dominion",     start: 260, end: 311, color: "#e84b4b" },
-  { name: "The Dronestate",        start: 312, end: 363, color: "#a0a0b0" },
-  { name: "Windwalker Clans",      start: 364, end: 415, color: "#7bc4a0" },
-  { name: "Coriolan Exiles",       start: 416, end: 467, color: "#c9a227", expansion: true },
-  { name: "Red Hegemony",          start: 468, end: 519, color: "#c94e4e", expansion: true },
-  { name: "Leaders & Citadels",    start: 520, end: 557, color: "#ffffff", special: true },
+  { name: "Neogenesis Church",     start: 0,   end: 53,  color: "#e0c44a" },
+  { name: "Coriolan Exiles",       start: 54,  end: 107, color: "#c9a227", expansion: true },
+  { name: "Cult of Apsynthos",     start: 108, end: 161, color: "#9b7fd4" },
+  { name: "The Dronestate",        start: 162, end: 215, color: "#a0a0b0" },
+  { name: "Red Hegemony",          start: 216, end: 269, color: "#c94e4e", expansion: true },
+  { name: "Machina Sapiens",       start: 270, end: 323, color: "#52d9d9" },
+  { name: "Myrmidon Dominion",     start: 324, end: 377, color: "#e84b4b" },
+  { name: "Utopian Remnant",       start: 378, end: 431, color: "#4a9eff" },
+  { name: "Undercity Brotherhood", start: 432, end: 485, color: "#e06b3e" },
+  { name: "Windwalker Clans",      start: 486, end: 530, color: "#7bc4a0" },
+  { name: "Leaders & Citadels",    start: 531, end: 557, color: "#ffffff", special: true },
 ];
 
 export function getFactionForCard(index) {
@@ -47,7 +50,12 @@ export function isEchoCard(index) {
 }
 
 export function isSpecialCard(index) {
-  return index >= SPECIAL_START;
+  return index >= SPECIAL_START && !isTokenCard(index);
+}
+
+export function isTokenCard(index) {
+  // Page 62 positions 2 and 4–9: printing artifacts, not game cards
+  return index === 550 || (index >= 552 && index <= 557);
 }
 
 export function isLandscapeCard(index) {

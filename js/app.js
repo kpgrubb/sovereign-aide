@@ -4,6 +4,7 @@
 import { GUIDE_SECTIONS, QUICK_REF } from './data/rules.js';
 import { KEYWORDS, KEYWORD_ALIASES } from './data/keywords.js';
 import { FACTIONS } from './data/factions.js';
+import { WORLD_INTRO, FACTION_LORE, LILIN_LORE } from './data/lore.js';
 import { annotateKeywords } from './tooltips.js';
 
 // ── STATE ──
@@ -91,6 +92,8 @@ function renderRefContent(tab) {
     renderFactions(container);
   } else if (tab === 'quickref') {
     renderQuickRef(container);
+  } else if (tab === 'lore') {
+    renderLore(container);
   }
 }
 
@@ -229,6 +232,50 @@ function renderQuickRef(container) {
         </tbody>
       </table>
     </div>
+  `;
+  annotateKeywords(container);
+}
+
+// ── LORE ──
+function renderLore(container) {
+  const introHtml = `
+    <div class="lore-world-intro">
+      <h2 class="lore-world-title">${WORLD_INTRO.title}</h2>
+      <div class="lore-world-body">${WORLD_INTRO.content}</div>
+      <div class="lore-attribution">${WORLD_INTRO.attribution}</div>
+    </div>
+  `;
+
+  const factionCards = FACTION_LORE.map(f => `
+    <div class="lore-faction-card" style="border-top-color:${f.color}">
+      ${f.expansion ? '<span class="expansion-badge">Exiles of Eden Expansion</span>' : ''}
+      <div class="lore-faction-name" style="color:${f.color}">${f.name}</div>
+      <div class="lore-faction-body">${f.lore}</div>
+      <details class="lore-tale">
+        <summary class="lore-tale-toggle" style="--tale-color:${f.color}">
+          <span class="lore-tale-icon">&#9654;</span> ${f.tale.title}
+        </summary>
+        <div class="lore-tale-text">${f.tale.text}</div>
+      </details>
+    </div>
+  `).join('');
+
+  const lilinHtml = `
+    <div class="lore-lilin-section">
+      <div class="lore-lilin-header">
+        <span class="lore-lilin-name" style="color:${LILIN_LORE.color}">${LILIN_LORE.name}</span>
+        <span class="lore-lilin-subtitle">${LILIN_LORE.subtitle}</span>
+      </div>
+      <div class="lore-faction-body">${LILIN_LORE.lore}</div>
+      ${LILIN_LORE.note}
+    </div>
+  `;
+
+  container.innerHTML = `
+    ${introHtml}
+    <div class="lore-section-label">FACTION HISTORIES</div>
+    <div class="lore-factions-grid">${factionCards}</div>
+    ${lilinHtml}
   `;
   annotateKeywords(container);
 }

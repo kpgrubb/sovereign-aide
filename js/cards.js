@@ -3,7 +3,7 @@
 // ──────────────────────────────────────────────
 import {
   CARD_COUNT, SPECIAL_START, FACTION_RANGES,
-  getFactionForCard, isEchoCard, isSpecialCard, isLandscapeCard,
+  getFactionForCard, isEchoCard, isSpecialCard, isTokenCard, isLandscapeCard,
   thumbPath, fullPath
 } from './data/cards.js';
 
@@ -85,6 +85,9 @@ function applyFilters() {
     const faction  = getFactionForCard(i);
     const isEcho   = isEchoCard(i);
     const isSpec   = isSpecialCard(i);
+    const isToken  = isTokenCard(i);
+
+    if (isToken) continue;  // always exclude printing-artifact token cards
 
     if (activeFaction !== 'all' && faction?.name !== activeFaction) continue;
 
@@ -277,7 +280,7 @@ const ANATOMY_EXAMPLES = [
   {
     id: 'echo',
     label: 'Echo',
-    cardIdx: 32,
+    cardIdx: 30,
     note: 'Your victory points. Score 10 Echoes (or 12 in 2-player) to win. Each faction deck contains 20 Echoes.',
     hotspots: [
       { top: '15%', left: '50%', num: 1, title: 'Echo',           desc: 'This card is an Echo — worth 1 point toward your win condition when scored.' },
@@ -289,7 +292,7 @@ const ANATOMY_EXAMPLES = [
   {
     id: 'leader',
     label: 'Leader / Citadel',
-    cardIdx: 520,
+    cardIdx: 531,
     landscape: true,
     note: 'Unique to each faction. Your Citadel starts in play; it anchors your strategy and can exhaust to accelerate forging.',
     hotspots: [
