@@ -63,7 +63,7 @@
   align-items: start;
 }
 .anatomy-layout.landscape {
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 360px 1fr;
 }
 @media (max-width: 780px) {
   .anatomy-layout,
@@ -82,15 +82,7 @@
   border-radius: var(--radius-md);
   box-shadow: 0 6px 32px rgba(0,0,0,0.7);
 }
-.anatomy-card-img.landscape {
-  transform: rotate(-90deg);
-  transform-origin: center center;
-  /* compensate layout: landscape card fills portrait container rotated */
-  width: calc(100% * 110 / 85);
-  margin-left: calc(-100% * 12.5 / 85);
-  margin-top: calc(100% * 12.5 / 85);
-  margin-bottom: calc(100% * 12.5 / 85);
-}
+/* Landscape cards display in natural orientation — no rotation needed */
 
 /* Hotspot dots */
 .anatomy-hotspot {

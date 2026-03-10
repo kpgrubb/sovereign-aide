@@ -296,11 +296,11 @@ const ANATOMY_EXAMPLES = [
     landscape: true,
     note: 'Unique to each faction. Your Citadel starts in play; it anchors your strategy and can exhaust to accelerate forging.',
     hotspots: [
-      { top: '18%', left: '12%', num: 1, title: 'Card Name',      desc: 'The name of this Leader or Citadel.' },
-      { top: '50%', left: '6%',  num: 2, title: 'Card Type',      desc: 'Leader or Citadel. These are not forged — they start the game in play.' },
-      { top: '67%', left: '6%',  num: 3, title: 'Ability',        desc: 'A powerful, faction-defining ability. Citadels can also exhaust Talent tokens to move your forge track forward.' },
-      { top: '85%', left: '6%',  num: 4, title: 'Health',         desc: 'Damage required to destroy this card. If your Citadel is destroyed, you lose the game.' },
-      { top: '18%', left: '80%', num: 5, title: 'Faction Symbol', desc: 'Identifies the faction this card belongs to.' },
+      { top:  '8%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this Leader or Citadel.' },
+      { top: '47%', left: '10%', num: 2, title: 'Card Type',      desc: 'Leader or Citadel. These are not forged — they start the game in play.' },
+      { top: '62%', left: '10%', num: 3, title: 'Ability',        desc: 'A powerful, faction-defining ability. Citadels can also exhaust Talent tokens to move your forge track forward.' },
+      { top: '90%', left: '10%', num: 4, title: 'Health',         desc: 'Damage required to destroy this card. If your Citadel is destroyed, you lose the game.' },
+      { top: '90%', left: '92%', num: 5, title: 'Faction Symbol', desc: 'Identifies the faction this card belongs to.' },
     ],
   },
 ];
@@ -348,7 +348,7 @@ function buildAnatomyPanel() {
     panel.innerHTML = `
       <div class="anatomy-layout${ex.landscape ? ' landscape' : ''}">
         <div class="anatomy-card-wrap">
-          <img class="anatomy-card-img${ex.landscape ? ' landscape' : ''}"
+          <img class="anatomy-card-img"
                src="${imgSrc}" alt="${ex.label} example card" />
           ${hotspotsHtml}
         </div>
