@@ -114,8 +114,8 @@ function initEmberParticles() {
   const container = document.getElementById('ember-particles');
   if (!container) return;
 
-  spawnEmbers(container, 15);
-  setInterval(() => spawnEmbers(container, 3), 2000);
+  spawnEmbers(container, 30);
+  setInterval(() => spawnEmbers(container, 6), 1200);
 }
 
 function spawnEmbers(container, count) {
