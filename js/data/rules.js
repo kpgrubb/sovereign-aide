@@ -508,6 +508,102 @@ export const PHASES = [
   }
 ];
 
+// ── UNIFIED GUIDE SECTIONS ──
+// Combines LEARN + PLAY GUIDE into one sidebar-navigated section.
+
+const INTRO_CONTENT = `
+  <h2>Introduction <span class="page-ref">[p. 4]</span></h2>
+
+  <p>Sovereign is an expandable card game where each player controls a burgeoning far-future society at the brink of war. Build an empire from the ground up, managing civilians and military units while striving to collect <strong>Echoes</strong> any way you can.</p>
+  <p>These relics from humanity's distant past will ensure your colony prospers while others fall. Forge them yourself, or steal them from other players. Build or conquer — it's up to you.</p>
+
+  <div class="callout">
+    <span class="callout-label">Win Condition</span>
+    The first player to score <strong>10 Echoes</strong> wins the game. After your first game, <strong>12 Echoes</strong> is the recommended win state for two players.
+  </div>
+
+  <h3>Your Deck</h3>
+  <p>Each deck consists of <strong>32 unique cards</strong> and <strong>20 Echoes</strong>, for a total of <strong>52 cards per player</strong>.</p>
+  <p><strong>Leader Card:</strong> Your faction's commander. A special ability unique to your ideology. Represents the <strong>left-most lane</strong> where you deploy units.</p>
+  <p><strong>Citadel Card:</strong> The heart of your civilization, built around the forge. Holds your <strong>idle citizens</strong> and represents the <strong>right-most lane</strong>.</p>
+
+  <h3>Citizens <span class="page-ref">[p. 6]</span></h3>
+  <div class="callout">
+    <span class="callout-label">Important</span>
+    Citizens are workers, not money! When you use them on a card, they're working that card and you get them back when they finish.
+  </div>
+  <p><strong>Talents</strong> — Intellectuals, elites, or nobility. Recruited each turn during the Growth Phase as gold tokens on your Citadel. They power your forge, activate facilities, and serve as unit health.</p>
+  <p><strong>Drones</strong> — Working class, servants, or slaves. Created when talents are flipped (exhausted) to accelerate forge construction, or via card effects. Also serve as unit health and power drone-specific abilities.</p>
+  <p><strong>The Creche</strong> — The shared pool of citizen tokens all players recruit from. Treat it as an unlimited resource.</p>
+  <p><strong>Idle Citizens</strong> — Tokens on your Citadel waiting to be assigned. Citizens on a unit represent that unit's current health. Citizens cannot be voluntarily flipped between talent and drone.</p>
+
+  <h3>Card Types <span class="page-ref">[p. 13]</span></h3>
+  <ul>
+    <li><strong>Units</strong> — Soldiers, mechs, merchants, statesmen. Forged and deployed into lanes to attack and defend. Max 3 per lane.</li>
+    <li><strong>Facilities</strong> — Forged to the left of your Leader. Activated by placing idle citizens on them. Either trigger once or maintain a perpetual effect while staffed.</li>
+    <li><strong>Augments</strong> — Attach permanently to a unit or facility (yours or any opponent's). Scrapped when the host is scrapped.</li>
+    <li><strong>Echoes</strong> — Your victory points. Score 10 to win. May never be placed in a scrap pile. Once scored, they are safe.</li>
+    <li><strong>Reflexes</strong> — Play from your hand at any time during your forge, battle, and move phase, or between turns. Takes effect immediately; never enters the forge.</li>
+  </ul>
+
+  <hr class="divider" />
+
+  <h3>Detailed Card Type Rules</h3>
+
+  <h4>Units <span class="page-ref">[p. 15]</span></h4>
+  <p>Units have three stats: <strong>Attack</strong>, <strong>Armor</strong>, and <strong>Health</strong>. New units deploy to the back of a lane. Add health tokens (up to the card's maximum) before the end of the forge phase they were revealed in.</p>
+
+  <h4>Facilities &amp; Leaders <span class="page-ref">[p. 16]</span></h4>
+  <p><strong>Triggered Abilities:</strong> Trigger once when the required citizens are all placed on the empty facility simultaneously. Reuse by removing all citizens first.</p>
+  <p><strong>Perpetual Abilities:</strong> Active as long as the citizens remain. You may leave them indefinitely — return them during Upkeep only when you choose to.</p>
+
+  <h4>Augments <span class="page-ref">[p. 18]</span></h4>
+  <p>After forging, attach to any unit or facility in play (as specified by the card). A card may hold any number of augments.</p>
+
+  <h4>Echoes <span class="page-ref">[p. 18]</span></h4>
+  <ul>
+    <li>An Echo <strong>may never be scored in the same turn</strong> it was placed in the forge.</li>
+    <li>An Echo may <strong>never be placed in a scrap pile</strong> by any means.</li>
+    <li>The forging talent returns to your Citadel <strong>unflipped</strong> when an Echo is scored.</li>
+    <li>Once scored, Echoes are <strong>safe and cannot be stolen or destroyed</strong>.</li>
+  </ul>
+
+  <h4>Reflexes <span class="page-ref">[p. 19]</span></h4>
+  <p>Reflexes take effect when you move the required citizens from your Citadel onto the reflex. They last until the beginning of your next upkeep phase, then are scrapped.</p>
+  <p><strong>Out-of-turn play:</strong> You may play reflexes or use abilities during the battle phase, at the start and end of an opponent's forge and move phases, and between player turns.</p>
+`;
+
+export const GUIDE_SECTIONS = [
+  {
+    id: 'intro',
+    label: 'INTRODUCTION',
+    content: INTRO_CONTENT,
+  },
+  {
+    id: 'setup',
+    label: 'GAME SETUP',
+    content: `<h2>Game Setup <span class="page-ref">[p. 8]</span></h2>` + RULES_SECTIONS.setup.content.replace(/<h2>[^<]*<\/h2>/, ''),
+  },
+  ...PHASES.map(p => ({
+    id: p.id,
+    label: `${p.number}. ${p.name.toUpperCase()}`,
+    content: `
+      <h2>Phase ${p.number}: ${p.name} <span class="page-ref">[p. ${p.page}]</span></h2>
+      <div class="callout">
+        <span class="callout-label">Summary</span>
+        ${p.summary}
+      </div>
+      ${p.beginner}
+      ${p.advanced ? `<hr class="divider" />${p.advanced}` : ''}
+    `,
+  })),
+  {
+    id: 'advanced',
+    label: 'ADVANCED RULES',
+    content: `<h2>Advanced Rules <span class="page-ref">[p. 28]</span></h2>` + RULES_SECTIONS.advanced.content.replace(/<h2>[^<]*<\/h2>/, ''),
+  },
+];
+
 // ── QUICK REFERENCE DATA ──
 export const QUICK_REF = {
   battleSummary: [

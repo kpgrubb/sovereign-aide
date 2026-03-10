@@ -330,6 +330,15 @@ strong { color: var(--text-primary); font-weight: 700; }
 .learn-content {
   min-height: 400px;
 }
+.guide-nav-group {
+  font-family: var(--font-head);
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  padding: 0.75rem 0.8rem 0.2rem;
+  text-transform: uppercase;
+}
 
 /* ── RULES CONTENT STYLING ── */
 .rules-block {

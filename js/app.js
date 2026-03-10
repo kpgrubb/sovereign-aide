@@ -1,26 +1,23 @@
 // ──────────────────────────────────────────────
 // APP.JS — Navigation, section rendering, toggles
 // ──────────────────────────────────────────────
-import { RULES_SECTIONS, PHASES, QUICK_REF } from './data/rules.js';
+import { GUIDE_SECTIONS, QUICK_REF } from './data/rules.js';
 import { KEYWORDS, KEYWORD_ALIASES } from './data/keywords.js';
 import { FACTIONS } from './data/factions.js';
 import { annotateKeywords } from './tooltips.js';
 
 // ── STATE ──
 let activeSection = 'home';
-let activeLearnTab = 'deck';
-let activePhase = 0;
+let activeGuideId = 'intro';
 let activeRefTab = 'glossary';
 
 // ── INIT ──
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
-  initLearnSidebar();
-  initPhaseTrack();
+  initGuideSidebar();
   initRefTabs();
   initGlossarySearch();
-  renderLearnContent(activeLearnTab);
-  renderPhaseDetail(activePhase);
+  renderGuideSection(activeGuideId);
   renderRefContent(activeRefTab);
   initQuickNavCards();
 });
@@ -52,66 +49,23 @@ function initQuickNavCards() {
   });
 }
 
-// ── LEARN SECTION ──
-function initLearnSidebar() {
-  document.querySelectorAll('.learn-nav').forEach(btn => {
+// ── GUIDE SECTION (unified LEARN + PLAY GUIDE) ──
+function initGuideSidebar() {
+  document.querySelectorAll('[data-guide]').forEach(btn => {
     btn.addEventListener('click', () => {
-      const tab = btn.dataset.learn;
-      document.querySelectorAll('.learn-nav').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('[data-guide]').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      activeLearnTab = tab;
-      renderLearnContent(tab);
+      activeGuideId = btn.dataset.guide;
+      renderGuideSection(activeGuideId);
     });
   });
 }
 
-function renderLearnContent(tab) {
-  const container = document.getElementById('learn-content');
-  const section = RULES_SECTIONS[tab];
-  if (!section) return;
-
+function renderGuideSection(id) {
+  const container = document.getElementById('guide-content');
+  const section = GUIDE_SECTIONS.find(s => s.id === id);
+  if (!section || !container) return;
   container.innerHTML = `<div class="rules-block">${section.content}</div>`;
-  annotateKeywords(container);
-}
-
-// ── PLAY GUIDE — PHASE TRACK ──
-function initPhaseTrack() {
-  document.querySelectorAll('.phase-node').forEach(node => {
-    node.addEventListener('click', () => {
-      const idx = parseInt(node.dataset.phase);
-      setActivePhase(idx);
-    });
-  });
-}
-
-function setActivePhase(idx) {
-  activePhase = idx;
-  document.querySelectorAll('.phase-node').forEach((node, i) => {
-    node.classList.toggle('active', i === idx);
-  });
-  renderPhaseDetail(idx);
-}
-
-function renderPhaseDetail(idx) {
-  const container = document.getElementById('phase-detail');
-  const phase = PHASES[idx];
-  if (!phase) return;
-
-  const advHtml = phase.advanced ? `
-    <hr class="divider" />
-    ${phase.advanced}` : '';
-
-  container.innerHTML = `
-    <div class="rules-block">
-      <h2>Phase ${phase.number}: ${phase.name.toUpperCase()} <span class="page-ref">[p. ${phase.page}]</span></h2>
-      <div class="callout">
-        <span class="callout-label">Summary</span>
-        ${phase.summary}
-      </div>
-      ${phase.beginner}
-      ${advHtml}
-    </div>
-  `;
   annotateKeywords(container);
 }
 

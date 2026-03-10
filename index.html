@@ -23,7 +23,6 @@
       </div>
       <nav class="main-nav" role="navigation" aria-label="Main navigation">
         <button class="nav-btn active" data-section="home">HOME</button>
-        <button class="nav-btn" data-section="learn">LEARN</button>
         <button class="nav-btn" data-section="guide">PLAY GUIDE</button>
         <button class="nav-btn" data-section="reference">REFERENCE</button>
         <button class="nav-btn" data-section="cards">CARDS</button>
@@ -49,15 +48,10 @@
       </div>
 
       <div class="quick-nav-grid">
-        <button class="quick-nav-card" data-section="learn">
-          <div class="qnc-icon">📖</div>
-          <div class="qnc-title">LEARN THE GAME</div>
-          <div class="qnc-desc">Rules, card types, and how your turn works</div>
-        </button>
         <button class="quick-nav-card" data-section="guide">
-          <div class="qnc-icon">⚔️</div>
+          <div class="qnc-icon">📖</div>
           <div class="qnc-title">PLAY GUIDE</div>
-          <div class="qnc-desc">Phase-by-phase walkthrough for every turn</div>
+          <div class="qnc-desc">Rules, card types, and phase-by-phase walkthrough</div>
         </button>
         <button class="quick-nav-card" data-section="reference">
           <div class="qnc-icon">🔍</div>
@@ -90,66 +84,28 @@
       </div>
     </section>
 
-    <!-- LEARN -->
-    <section id="section-learn" class="section" aria-label="Learn the Game">
-      <div class="section-header">
-        <h2>LEARN THE GAME</h2>
-      </div>
-      <div class="learn-layout">
-        <nav class="learn-sidebar" aria-label="Rules sections">
-          <button class="learn-nav active" data-learn="deck">YOUR DECK</button>
-          <button class="learn-nav" data-learn="citizens">CITIZENS</button>
-          <button class="learn-nav" data-learn="anatomy">CARD ANATOMY</button>
-          <button class="learn-nav" data-learn="setup">GAME SETUP</button>
-          <button class="learn-nav" data-learn="phases">YOUR TURN</button>
-          <button class="learn-nav" data-learn="cardtypes">CARD TYPES</button>
-          <button class="learn-nav adv-only" data-learn="advanced">ADVANCED RULES</button>
-        </nav>
-        <div class="learn-content" id="learn-content">
-          <!-- populated by app.js -->
-        </div>
-      </div>
-    </section>
-
-    <!-- PLAY GUIDE -->
+    <!-- PLAY GUIDE (unified) -->
     <section id="section-guide" class="section" aria-label="Play Guide">
       <div class="section-header">
         <h2>PLAY GUIDE</h2>
-        <p class="section-desc">Your turn, phase by phase.</p>
       </div>
-      <div class="phase-track">
-        <div class="phase-node active" data-phase="0">
-          <div class="phase-dot"></div>
-          <div class="phase-name">GROWTH</div>
+      <div class="learn-layout">
+        <nav class="learn-sidebar" id="guide-sidebar" aria-label="Guide sections">
+          <button class="learn-nav active" data-guide="intro">INTRODUCTION</button>
+          <button class="learn-nav" data-guide="setup">GAME SETUP</button>
+          <div class="guide-nav-group">YOUR TURN</div>
+          <button class="learn-nav" data-guide="growth">1. GROWTH</button>
+          <button class="learn-nav" data-guide="upkeep">2. UPKEEP</button>
+          <button class="learn-nav" data-guide="forge">3. FORGE</button>
+          <button class="learn-nav" data-guide="battle">4. BATTLE</button>
+          <button class="learn-nav" data-guide="move">5. MOVE</button>
+          <button class="learn-nav" data-guide="draw">6. DRAW</button>
+          <div class="guide-nav-group" style="margin-top:0.5rem"></div>
+          <button class="learn-nav" data-guide="advanced">ADVANCED RULES</button>
+        </nav>
+        <div class="learn-content" id="guide-content">
+          <!-- populated by app.js -->
         </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node" data-phase="1">
-          <div class="phase-dot"></div>
-          <div class="phase-name">UPKEEP</div>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node" data-phase="2">
-          <div class="phase-dot"></div>
-          <div class="phase-name">FORGE</div>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node" data-phase="3">
-          <div class="phase-dot"></div>
-          <div class="phase-name">BATTLE</div>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node" data-phase="4">
-          <div class="phase-dot"></div>
-          <div class="phase-name">MOVE</div>
-        </div>
-        <div class="phase-connector"></div>
-        <div class="phase-node" data-phase="5">
-          <div class="phase-dot"></div>
-          <div class="phase-name">DRAW</div>
-        </div>
-      </div>
-      <div class="phase-detail" id="phase-detail">
-        <!-- populated by app.js -->
       </div>
     </section>
 
