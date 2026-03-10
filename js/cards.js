@@ -291,16 +291,14 @@ const ANATOMY_EXAMPLES = [
   },
   {
     id: 'leader',
-    label: 'Leader / Citadel',
+    label: 'Leader',
     cardIdx: 531,
     landscape: true,
-    note: 'Unique to each faction. Your Citadel starts in play; it anchors your strategy and can exhaust to accelerate forging.',
+    note: 'Unique to each faction. Your Leader starts in play and defines your faction\'s identity.',
     hotspots: [
-      { top:  '8%', left: '50%', num: 1, title: 'Card Name',      desc: 'The name of this Leader or Citadel.' },
-      { top: '47%', left: '10%', num: 2, title: 'Card Type',      desc: 'Leader or Citadel. These are not forged — they start the game in play.' },
-      { top: '62%', left: '10%', num: 3, title: 'Ability',        desc: 'A powerful, faction-defining ability. Citadels can also exhaust Talent tokens to move your forge track forward.' },
-      { top: '90%', left: '10%', num: 4, title: 'Health',         desc: 'Damage required to destroy this card. If your Citadel is destroyed, you lose the game.' },
-      { top: '90%', left: '92%', num: 5, title: 'Faction Symbol', desc: 'Identifies the faction this card belongs to.' },
+      { top: '48%', left: '50%', num: 1, title: 'Name',           desc: 'The name of this Leader — also the name of your faction.' },
+      { top: '64%', left: '50%', num: 2, title: 'Ability',        desc: 'A powerful, faction-defining ability that shapes your strategy from the start.' },
+      { top: '90%', left: '92%', num: 3, title: 'Faction Symbol', desc: 'Identifies the faction this Leader belongs to.' },
     ],
   },
 ];
